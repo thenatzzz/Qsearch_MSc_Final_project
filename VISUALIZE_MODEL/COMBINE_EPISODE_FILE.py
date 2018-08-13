@@ -21,8 +21,13 @@ def join_path_to_file(FILE_LIST, PATH_DATASET):
 def main():
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     FOLDER = 'FINISHED_MODEL'
+
     DATASET_FOLDER = 'MNIST'
     MAIN_FOLDER = 'MNIST_1'
+
+    DATASET_FOLDER = 'CIFAR-10'
+    MAIN_FOLDER = 'CIFAR-10_2'
+
     QTABLE_FOLDER= 'QTABLE'
     PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER,\
                                 MAIN_FOLDER,QTABLE_FOLDER)
@@ -38,5 +43,6 @@ def main():
     OUTPUT_FILE_WITH_PATH = join_path_to_file(OUTPUT_FILE,PATH_DATASET)
     OUTPUT_FILE = save_list_csv_rowbyrow(OUTPUT_FILE_WITH_PATH,data_list)
 
+    print("Combine : \n\n{} \n\ninto {} successfully!".format(QTABLE_FILE_WITH_PATH,OUTPUT_FILE))
 if "__main__" == __name__:
     main()
