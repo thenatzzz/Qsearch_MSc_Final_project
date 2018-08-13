@@ -1,6 +1,7 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 import sys
 sys.path.insert(0,'/homes/nj2217/FINAL_PROJECT/MAIN')
 
@@ -38,7 +39,6 @@ def compute_avg_data(data,criteria):
         tmp_list.append(avg)
 
     final_list = np.round(tmp_list,ROUND_DIGIT)
-
     return final_list
 
 def calculate_avg_per_ep(tracking_index,data,index_criteria,episode_interval):
@@ -77,11 +77,9 @@ def create_area_chart(data,criteria,list,DATASET = None):
     # Color palette
     blue, = sns.color_palette("muted", 1)
 
-
     # Create data
     x = np.arange(len(list))
 
-    # y = get_column(data,criteria,how_many_model)
     y = list
 
     # Make the plot
@@ -180,97 +178,56 @@ def create_x_axis(data, episode_interval):
     return temp_list
 
 def main():
-    criteria = 'accuracy'
-    '''
-    file_name = "fixed_model_dict.csv"
+    CRITERIA = 'accuracy'
+
+    CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
+    FOLDER = 'FINISHED_MODEL'
+
     DATASET = 'mnist'
-    '''
-    '''
-    # file_name = "COMPLETE_CIFAR10.csv"
+    DATASET_FOLDER = 'MNIST'
+    MAIN_FOLDER = 'MNIST_1'
+    # MAIN_FOLDER = 'MNIST_2'
+    # MAIN_FOLDER = 'MNIST_3'
+    # MAIN_FOLDER = 'MNIST_4'
+
     # DATASET = 'cifar10'
-    '''
+    # DATASET = 'CIFAR-10'
+    # MAIN_FOLDER = 'CIFAR-10_1'
+    # MAIN_FOLDER = 'CIFAR-10_2'
+    # MAIN_FOLDER = 'CIFAR-10_3'
+    # MAIN_FOLDER = 'CIFAR-10_4'
+    # MAIN_FOLDER = 'CIFAR-10_5'
 
-    '''
-    # MNIST: CLEAN_CODE
-    file_path = "/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/MNIST/CLEAN_CODE/"
-    file = "fixed_model_dict.csv"
-    file = "original_model_dict.csv"
-    file_name = file_path + file
-    DATASET = 'mnist'
-    '''
-    '''
-    # MNIST: MNIST_GPU
-    file_path = "/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/MNIST/MNIST_GPU/"
-    file = "episode_fixed_model.csv"
-    file_name = file_path + file
-    DATASET = 'mnist'
-    '''
+    MODEL_FOLDER = 'MODEL_DICT'
+    INPUT_FILE = 'original_model.csv'
 
-    # MNIST: MNIST_GPU_UPDATE_EXP
-    file_path = "/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/MNIST/MNIST_GPU_UPDATE_EXP/"
-    file = "episode_fixed_model.csv"
-    file = 'test.csv'
-    file_name = file_path + file
-    DATASET = 'mnist'
+    PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER,\
+                                MAIN_FOLDER)
+    MODEL_DICT_FOLDER = 'MODEL_DICT'
+    INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,MODEL_DICT_FOLDER,INPUT_FILE)
 
-    '''
-    # MNIST: MNIST_GPU_UPDATE_EXP_PERIOD
-    file_path = "/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/MNIST/MNIST_GPU_UPDATE_EXP_PERIOD/"
-    file = "episode_fixed_model.csv"
-    # file = 'test.csv'
-    file_name = file_path + file
-    DATASET = 'mnist'
-    '''
-    '''
-    #CIFAR-10: TMP_CODE
-    file_path ="/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/CIFAR-10/TMP_CODE/"
-    file = "COMPLETE_CIFAR10.csv"
-    file_name = file_path + file
-    DATASET = 'cifar10'
-
-    #CIFAR-10: TMP2_CLEAN_CODE
-    # lost file
-    '''
-    '''
-    #CIFAR-10: TMP3_CLEAN_CODE
-    file_path ="/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/CIFAR-10/TMP3_CLEAN_CODE/"
-    file = "COMPLETE_CIFAR10.csv"
-    file_name = file_path + file
-    DATASET = 'cifar10'
-    '''
-    '''
-    #CIFAR-10: TMP_CODE_2
-    file_path ="/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/CIFAR-10/TMP_CODE_2/"
-    file = "COMPLETE_CIFAR10.csv"
-    file_name = file_path + file
-    DATASET = 'cifar10'
-    '''
-    '''
-    #CIFAR-10: TMP2_CODE_2
-    file_path ="/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/CIFAR-10/TMP2_CODE_2/"
-    file = "COMPLETE_CIFAR10.csv"
-    file = "COMPLETE_CIFAR10_modified.csv"
-    file_name = file_path + file
-    DATASET = 'cifar10'
-    '''
-
-    data = get_data_from_csv(file_name)
+    data = get_data_from_csv(INPUT_FILE_WITH_PATH)
     data = format_data_without_header(data)
-    list = compute_avg_data(data,criteria)
-    # create_area_chart(data,criteria,list,DATASET)
+    list = compute_avg_data(data,CRITERIA)
+    # create_area_chart(data,CRITERIA,list,DATASET)
 
-    episode_interval = 300
-    # episode_interval = 200
+    EPISODE_INTERVAL = 300
+    # EPISODE_INTERVAL = 200
 
 
-    file_name = file_name.strip('.csv')
-    file_name = file_name + '.png'
-    saved_fig_name = file_name
-    list_2 = compute_episode_data(episode_interval,data,criteria)
-    list_2 = format_list_episode(list, list_2, episode_interval)
-    # create_area_chart(data,criteria,list_2,DATASET)
-    x_axis_eps_interval = create_x_axis(list_2,episode_interval)
-    create_area_chart_2_graph(data,criteria,list,list_2,x_axis_eps_interval,saved_fig_name,DATASET)
+    INPUT_FILE = INPUT_FILE.strip('.csv')
+    GRAPH_NAME = INPUT_FILE + '.png'
+    list_2 = compute_episode_data(EPISODE_INTERVAL,data,CRITERIA)
+    list_2 = format_list_episode(list, list_2, EPISODE_INTERVAL)
+    # create_area_chart(data,CRITERIA,list_2,DATASET)
+    x_axis_eps_interval = create_x_axis(list_2,EPISODE_INTERVAL)
+
+    GRAPH_FOLDER = 'MODEL_GRAPH'
+    GRAPH_FILE_WITH_PATH = os.path.join(PATH_DATASET,GRAPH_FOLDER,GRAPH_NAME)
+    create_area_chart_2_graph(data,CRITERIA,list,list_2,x_axis_eps_interval,\
+                            GRAPH_FILE_WITH_PATH,DATASET)
+
+    print("Create graph: \n\t {} \n from \t {} \n successfully!".format(GRAPH_FILE_WITH_PATH,INPUT_FILE_WITH_PATH))
 
 if __name__ == "__main__":
     main()
