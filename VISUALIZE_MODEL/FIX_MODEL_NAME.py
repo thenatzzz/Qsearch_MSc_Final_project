@@ -9,23 +9,23 @@ def fix_model_number(data):
     for i in range(len(data)):
         data[i][INDEX_MODEL_NAME] = 'model_'+str(i)
     return data
-    
+
 def main():
 
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     FOLDER = 'FINISHED_MODEL'
 
     DATASET_FOLDER = 'MNIST'
-    MAIN_FOLDER = 'MNIST_1' # does not have episode_table
+    # MAIN_FOLDER = 'MNIST_1' # does not have episode_table
     # MAIN_FOLDER = 'MNIST_2'
     # MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
-    DATASET = 'CIFAR-10'
+    DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_2'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_3'    # does not have episode_table
-    # MAIN_FOLDER = 'CIFAR-10_4'    # does not have episode_table
+    MAIN_FOLDER = 'CIFAR-10_4'    # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_5'
 
     MODEL_FOLDER = 'MODEL_DICT'
@@ -35,10 +35,8 @@ def main():
     PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER,\
                                 MAIN_FOLDER,MODEL_FOLDER)
     INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,INPUT_FILE)
-    print(INPUT_FILE_WITH_PATH)
     data = get_data_from_csv(INPUT_FILE_WITH_PATH)
     header = data[0]
-    print("header: ",header)
     data = format_data_without_header(data)
 
     data =fix_model_number(data)

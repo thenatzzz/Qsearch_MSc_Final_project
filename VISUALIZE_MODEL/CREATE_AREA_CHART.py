@@ -185,17 +185,17 @@ def main():
 
     DATASET = 'mnist'
     DATASET_FOLDER = 'MNIST'
-    MAIN_FOLDER = 'MNIST_1'
+    # MAIN_FOLDER = 'MNIST_1'
     # MAIN_FOLDER = 'MNIST_2'
     # MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
-    # DATASET = 'cifar10'
-    # DATASET = 'CIFAR-10'
+    DATASET = 'cifar10'
+    DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'
     # MAIN_FOLDER = 'CIFAR-10_2'
     # MAIN_FOLDER = 'CIFAR-10_3'
-    # MAIN_FOLDER = 'CIFAR-10_4'
+    MAIN_FOLDER = 'CIFAR-10_4'
     # MAIN_FOLDER = 'CIFAR-10_5'
 
     MODEL_FOLDER = 'MODEL_DICT'
