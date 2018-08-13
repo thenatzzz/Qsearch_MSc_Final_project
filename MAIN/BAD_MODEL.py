@@ -6,6 +6,7 @@ ACCURACY_COL_INDEX = -2
 
 def get_bad_topology(data,threshold,factor):
     list_data = []
+    
     for index in range(len(data)):
         if factor == "accuracy":
             if float(data[index][ACCURACY_COL_INDEX]) < threshold:
@@ -16,7 +17,7 @@ def get_bad_topology(data,threshold,factor):
     return list_data
 
 def main():
-    
+
     FILE_NAME = "fixed_model_dict.csv"
     FILE_NAME = "COMPLETE_CIFAR10.csv"
 
