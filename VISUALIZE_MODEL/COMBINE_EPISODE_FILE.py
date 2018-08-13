@@ -26,7 +26,7 @@ def main():
     MAIN_FOLDER = 'MNIST_1'
 
     DATASET_FOLDER = 'CIFAR-10'
-    MAIN_FOLDER = 'CIFAR-10_2'
+    MAIN_FOLDER = 'CIFAR-10_3'
 
     QTABLE_FOLDER= 'QTABLE'
     PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER,\
@@ -44,5 +44,6 @@ def main():
     OUTPUT_FILE = save_list_csv_rowbyrow(OUTPUT_FILE_WITH_PATH,data_list)
 
     print("Combine : \n\n{} \n\ninto {} successfully!".format(QTABLE_FILE_WITH_PATH,OUTPUT_FILE))
+
 if "__main__" == __name__:
     main()
