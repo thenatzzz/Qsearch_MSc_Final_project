@@ -28,9 +28,6 @@ def main():
                                 MAIN_FOLDER,QTABLE_FOLDER)
     QTABLE_FILE = list_file_in_path(PATH_DATASET)
     QTABLE_FILE_WITH_PATH = join_path_to_file(QTABLE_FILE,PATH_DATASET)
-    print(PATH_DATASET)
-    print(QTABLE_FILE)
-    print(QTABLE_FILE_WITH_PATH)
 
     data_list = []
     for i in range(len(QTABLE_FILE_WITH_PATH)):

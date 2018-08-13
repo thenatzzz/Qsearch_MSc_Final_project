@@ -2,7 +2,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import sys
-sys.path.insert(0,'/homes/nj2217/PROJECT/TMP4_CLEAN_CODE')
+sys.path.insert(0,'/homes/nj2217/FINAL_PROJECT/MAIN')
 
 from HELPER_FUNCTION import *
 
@@ -120,11 +120,7 @@ def format_list_episode(normal_list, episode_list, episode_interval):
 def create_area_chart_2_graph(data,criteria,list,list2,x_axis,saved_fig_name,DATASET = None):
     sns.set_style("whitegrid")
     blue, = sns.color_palette("muted", 1)
-    # blue, = sns.color_palette("bright", 1)
-    # plt.rcParams['axes.facecolor'] = 'white'
-    # plt.rcParams['axes.edgecolor'] = 'white'
-    # plt.rcParams['grid.alpha'] = 1
-    # plt.rcParams['grid.color'] = "#cccccc"
+
     x = np.arange(len(list))
     y = list
 
@@ -160,7 +156,6 @@ def create_area_chart_2_graph(data,criteria,list,list2,x_axis,saved_fig_name,DAT
         dataset = "Data"
     print(dataset)
     plt.title("Q-Learning Performance on "+dataset)
-    # plt.show()
     plt.savefig(saved_fig_name)
     plt.show()
 
@@ -244,7 +239,7 @@ def main():
     DATASET = 'cifar10'
     '''
     '''
-    #CIFAR-10: TMP2_CODE_2
+    #CIFAR-10: TMP_CODE_2
     file_path ="/homes/nj2217/PROJECT/VISUALIZE_MODEL/FINISHED_MODEL/CIFAR-10/TMP_CODE_2/"
     file = "COMPLETE_CIFAR10.csv"
     file_name = file_path + file
