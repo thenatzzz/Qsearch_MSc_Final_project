@@ -11,7 +11,7 @@ sns.set(color_codes=True)
 
 INDEX_ACCURACY = -2
 
-def create_dist_chart(data):
+def create_dist_chart(data,dataset,save_path):
     mean = np.mean(data)
     std = np.round(np.std(data),5)
     print("mean {} :: std {}".format(mean,std))
@@ -34,42 +34,30 @@ def create_dist_chart(data):
     plt.legend(handles= [mean_line,median_line,std_line,num_model_line])
     sns.distplot(data)
 
-    plt.title('Distribution of Validation Accuracy of Model found by Random Search on CIFAR-10')
+    plt.title('Distribution of Validation Accuracy of Model found by Random Search on {}'.format(dataset))
     plt.xlabel('Validation Accuracy')
     plt.ylabel('Number of Model')
-    plt.show()
+    # plt.show()
+    plt.savefig(save_path)
 
 def main():
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
-    FOLDER = 'FINISHED_MODEL'
+    FOLDER = 'MODEL_WITH_RANDOM_SEARCH'
 
-    DATASET = 'mnist'
     DATASET_FOLDER = 'MNIST'
-    # MAIN_FOLDER = 'MNIST_1'
-    # MAIN_FOLDER = 'MNIST_2'
-    # MAIN_FOLDER = 'MNIST_3'
-    # MAIN_FOLDER = 'MNIST_4'
 
-    DATASET = 'cifar10'
     DATASET_FOLDER = 'CIFAR-10'
-    # MAIN_FOLDER = 'CIFAR-10_1'
-    # MAIN_FOLDER = 'CIFAR-10_2'
-    # MAIN_FOLDER = 'CIFAR-10_3'
-    # MAIN_FOLDER = 'CIFAR-10_4'
-    MAIN_FOLDER = 'CIFAR-10_5'
 
-    MODEL_FOLDER = 'MODEL_DICT'
+
     INPUT_FILE = 'original_model.csv'
 
-    PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER,\
-                                MAIN_FOLDER)
-    MODEL_DICT_FOLDER = 'MODEL_DICT'
-    INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,MODEL_DICT_FOLDER,INPUT_FILE)
+    PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER)
+    INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,INPUT_FILE)
 
-                                
-    data = pd.read_csv('original_model.csv')
+
+    data = pd.read_csv(INPUT_FILE_WITH_PATH)
     data_accuracy = data.iloc[:,INDEX_ACCURACY].values
-    create_dist_chart(data_accuracy)
+    create_dist_chart(data_accuracy,DATASET_FOLDER,PATH_DATASET)
 
 if __name__ == "__main__":
     main()
