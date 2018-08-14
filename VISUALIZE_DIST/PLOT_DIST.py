@@ -5,7 +5,7 @@ from sympy import *
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.legend_handler import HandlerBase
-
+import os
 from scipy import stats
 sns.set(color_codes=True)
 
@@ -45,15 +45,12 @@ def main():
     FOLDER = 'MODEL_WITH_RANDOM_SEARCH'
 
     DATASET_FOLDER = 'MNIST'
-
     DATASET_FOLDER = 'CIFAR-10'
-
 
     INPUT_FILE = 'original_model.csv'
 
     PATH_DATASET = os.path.join(CURRENT_WORKING_DIR,FOLDER,DATASET_FOLDER)
     INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,INPUT_FILE)
-
 
     data = pd.read_csv(INPUT_FILE_WITH_PATH)
     data_accuracy = data.iloc[:,INDEX_ACCURACY].values
