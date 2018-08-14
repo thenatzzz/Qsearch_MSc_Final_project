@@ -195,8 +195,8 @@ def main():
     # MAIN_FOLDER = 'CIFAR-10_1'
     # MAIN_FOLDER = 'CIFAR-10_2'
     # MAIN_FOLDER = 'CIFAR-10_3'
-    MAIN_FOLDER = 'CIFAR-10_4'
-    # MAIN_FOLDER = 'CIFAR-10_5'
+    # MAIN_FOLDER = 'CIFAR-10_4'
+    MAIN_FOLDER = 'CIFAR-10_5'
 
     MODEL_FOLDER = 'MODEL_DICT'
     INPUT_FILE = 'original_model.csv'
