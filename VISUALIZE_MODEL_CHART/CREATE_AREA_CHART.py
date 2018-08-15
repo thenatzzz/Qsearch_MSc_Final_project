@@ -136,6 +136,8 @@ def create_area_chart_2_graph(data,criteria,list,list2,x_axis,saved_fig_name,DAT
         y_ax_range = (0.875,1.0)
     elif DATASET == 'cifar10':
         y_ax_range = (0.69,0.74)
+        y_ax_range = (0.69,0.75)
+
     else:
         y_ax_range = (0,None)
     # ax.set(xticklabels=[])
@@ -185,18 +187,18 @@ def main():
 
     DATASET = 'mnist'
     DATASET_FOLDER = 'MNIST'
-    # MAIN_FOLDER = 'MNIST_1'
+    MAIN_FOLDER = 'MNIST_1'
     # MAIN_FOLDER = 'MNIST_2'
     # MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
-    DATASET = 'cifar10'
-    DATASET_FOLDER = 'CIFAR-10'
+    # DATASET = 'cifar10'
+    # DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'
     # MAIN_FOLDER = 'CIFAR-10_2'
     # MAIN_FOLDER = 'CIFAR-10_3'
     # MAIN_FOLDER = 'CIFAR-10_4'
-    MAIN_FOLDER = 'CIFAR-10_5'
+    # MAIN_FOLDER = 'CIFAR-10_5'
 
     MODEL_FOLDER = 'MODEL_DICT'
     INPUT_FILE = 'original_model.csv'
