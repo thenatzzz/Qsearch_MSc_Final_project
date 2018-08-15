@@ -141,19 +141,10 @@ def main():
     INDEX_ACCURACY = -2
     INDEX_LOSS = -1
     SORTING_INDEX = INDEX_ACCURACY
-    # SORTING_INDEX = INDEX_LOSS
-
-    #data = combine_file(INPUT_PATH, OUTPUT_FILE_PATH)
-    #data = sort_data(data, SORTING_INDEX)
-
-    #result_file_name = save_topology_in_csv(OUTPUT_FILE_PATH,data)
-    #print("Combine file from: ",INPUT_PATH, " : and get ", OUTPUT_FILE_NAME, " successfully!")
-
 
     file_path = "/homes/nj2217/PROJECT/TMP5_CLEAN_CODE/FINISHED_MODEL/"
 
     ''' DATASET = mnist '''
-
   #   '''1 mnist'''
     # c_2,c_6,c_3,c_1
     # total ep: 3500 : 2500/500/500 exp:10
