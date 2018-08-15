@@ -187,9 +187,9 @@ def main():
 
     DATASET = 'mnist'
     DATASET_FOLDER = 'MNIST'
-    MAIN_FOLDER = 'MNIST_1'
+    # MAIN_FOLDER = 'MNIST_1'
     # MAIN_FOLDER = 'MNIST_2'
-    # MAIN_FOLDER = 'MNIST_3'
+    MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
     # DATASET = 'cifar10'

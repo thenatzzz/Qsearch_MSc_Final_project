@@ -24,15 +24,15 @@ def main():
     DATASET_FOLDER = 'MNIST'
     # MAIN_FOLDER = 'MNIST_1' # does not have episode_table
     # MAIN_FOLDER = 'MNIST_2'
-    # MAIN_FOLDER = 'MNIST_3'
+    MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
-    DATASET_FOLDER = 'CIFAR-10'
+    # DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_2'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_3'    # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_4'    # does not have episode_table
-    MAIN_FOLDER = 'CIFAR-10_5'
+    # MAIN_FOLDER = 'CIFAR-10_5'
     # MAIN_FOLDER = 'CIFAR-10_5'
 
     EPISODE_FOLDER = 'EPISODE_TABLE'
