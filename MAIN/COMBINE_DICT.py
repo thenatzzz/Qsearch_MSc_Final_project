@@ -142,7 +142,8 @@ def main():
     INDEX_LOSS = -1
     SORTING_INDEX = INDEX_ACCURACY
 
-    file_path = "/homes/nj2217/PROJECT/TMP5_CLEAN_CODE/FINISHED_MODEL/"
+    # file_path = "/homes/nj2217/PROJECT/TMP5_CLEAN_CODE/FINISHED_MODEL/"
+    file_path = "/homes/nj2217/FINAL_PROJECT/MAIN/FINISHED_MODEL/"
 
     ''' DATASET = mnist '''
   #   '''1 mnist'''
@@ -212,7 +213,7 @@ def main():
 
     ''' DATASET = cifar-10 '''
 
-    file_type = "CIFAR-10/"
+    # file_type = "CIFAR-10/"
 
     '''1 cifar10'''
     # c_2,c_6,c_11,c_9
@@ -296,8 +297,6 @@ def main():
    # val_acc = 0.7501
    #  val_loss = 0.7637545
 
-
-
     file = file_path + file_type + main_folder + main_file
     data = get_data_from_csv(file)
     data = format_data_without_header(data)
@@ -305,10 +304,9 @@ def main():
     print("\nLast model is : ", data[-1])
     file = file.strip('.csv')
     file += "_sorted.csv"
-    # result_file_name = save_topology_in_csv(file,sorted_data)
+    ''' result_file_name = save_topology_in_csv(file,sorted_data)  #Uncomment to save new data in file'''
 
-    index_target = INDEX_ACCURACY
-    initial_eps_mean = get_mean_initial_ep(data,initial_episode,index_target)
+    initial_eps_mean = get_mean_initial_ep(data,initial_episode,SORTING_INDEX)
     print("\nMean of initial: ",initial_episode, " is --> ", initial_eps_mean)
 
     data_without_initial_ep = remove_data_initial_ep(data,initial_episode)
@@ -317,5 +315,16 @@ def main():
     list_top_model = get_top_model(sorted_data,num_model)
     print("\nThe list of top ",num_model," are as follows:\n ",list_top_model)
 
+
+    '''Model with Random Search'''
+    file_type = "MODEL_WITH_RANDOM_SEARCH/"
+
+    main_folder = "CIFAR-10/"
+    main_folder = "MNIST/"
+
+    main_file = "original_model.csv"
+    file = file_path + file_type+ main_folder+ main_file
+    data = get_data_from_csv(file)
+    data =format_data_without_header(data)
 if __name__ == "__main__":
     main()
