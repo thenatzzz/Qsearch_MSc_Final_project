@@ -297,6 +297,7 @@ def main():
    # val_acc = 0.7501
    #  val_loss = 0.7637545
 
+    '''
     file = file_path + file_type + main_folder + main_file
     data = get_data_from_csv(file)
     data = format_data_without_header(data)
@@ -304,7 +305,7 @@ def main():
     print("\nLast model is : ", data[-1])
     file = file.strip('.csv')
     file += "_sorted.csv"
-    ''' result_file_name = save_topology_in_csv(file,sorted_data)  #Uncomment to save new data in file'''
+    # result_file_name = save_topology_in_csv(file,sorted_data)  #Uncomment to save new data in file
 
     initial_eps_mean = get_mean_initial_ep(data,initial_episode,SORTING_INDEX)
     print("\nMean of initial: ",initial_episode, " is --> ", initial_eps_mean)
@@ -314,17 +315,25 @@ def main():
     num_model = 5
     list_top_model = get_top_model(sorted_data,num_model)
     print("\nThe list of top ",num_model," are as follows:\n ",list_top_model)
+    '''
 
-
+    CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     '''Model with Random Search'''
+    folder = "FINISHED_MODEL"
     file_type = "MODEL_WITH_RANDOM_SEARCH/"
 
     main_folder = "CIFAR-10/"
-    main_folder = "MNIST/"
+    # main_folder = "MNIST/"
 
     main_file = "original_model.csv"
-    file = file_path + file_type+ main_folder+ main_file
+    # file = file_path + file_type+ main_folder+ main_file
+    file = os.path.join(CURRENT_WORKING_DIR,folder,file_type,main_folder,main_file)
     data = get_data_from_csv(file)
     data =format_data_without_header(data)
+    sorted_data = sort_data(data,SORTING_INDEX)
+    num_model = 5
+    list_top_model = get_top_model(sorted_data,num_model)
+    print("\nThe list of top ",num_model," are as follows:\n ",list_top_model)
+
 if __name__ == "__main__":
     main()

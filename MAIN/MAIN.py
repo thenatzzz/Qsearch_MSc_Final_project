@@ -36,6 +36,7 @@ if __name__ == "__main__":
     print(INPUT_FILE_NAME)
     pre_train_model_cifar10(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
     '''
+    '''
     #Run Q-learning to find best topology
     file_name = "COMPLETE_CIFAR10.csv"
     data = get_data_from_csv(file_name)
@@ -44,10 +45,9 @@ if __name__ == "__main__":
     best_topology = run_q_learning(data,DATASET)
     print("best_topology: ", best_topology)
     verify_model(best_topology,DATASET)
-
     '''
-    model = ['c_1','c_6','c_5','m_2']
+
+    model = ['c_1','c_8','c_12','c_9']
     # DATASET = 'cifar10'
     DATASET = 'mnist'
     verify_model(model, DATASET)
-    '''
