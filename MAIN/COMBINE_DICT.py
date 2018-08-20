@@ -297,6 +297,23 @@ def main():
    # val_acc = 0.7501
    #  val_loss = 0.7637545
 
+   ''' mnist random search '''
+ #   The list of top  5  are as follows:
+ #  [['model_520' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
+ # ['model_535' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
+ # ['model_858' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
+ # ['model_873' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
+ # ['model_530' 'c_12' 'c_4' 'c_8' 'm_1' '0.9809' '0.062172648']]
+
+''' cifar-10 random search'''
+# The list of top  5  are as follows:
+#   [['model_774' 'c_11' 'c_12' 'm_3' 'c_12' '0.8018' '0.6082780576']
+#  ['model_444' 'c_9' 'm_2' 'c_12' 'c_8' '0.7997' '0.6209799933']
+#  ['model_927' 'c_2' 'm_3' 'c_11' 'c_12' '0.7931' '0.6634568202']
+#  ['model_650' 'c_12' 'm_3' 'c_11' 'c_10' '0.7916' '0.63901881']
+#  ['model_1806' 'c_11' 'm_1' 'c_9' 'c_3' '0.7908' '0.6514748561']]
+
+
     '''
     file = file_path + file_type + main_folder + main_file
     data = get_data_from_csv(file)

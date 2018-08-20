@@ -48,6 +48,6 @@ if __name__ == "__main__":
     '''
 
     model = ['c_1','c_8','c_12','c_9']
-    # DATASET = 'cifar10'
-    DATASET = 'mnist'
+    DATASET = 'cifar10'
+    # DATASET = 'mnist'
     verify_model(model, DATASET)
