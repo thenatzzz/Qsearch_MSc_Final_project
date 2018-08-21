@@ -84,6 +84,7 @@ def format_data(data, PATH):
         temp_array.append(data[i])
         if is_complete_single_qtable(temp_array):
             eps_name,final_list = format_data_per_eps(temp_array)
+            # print(PATH)
             save_single_eps_in_file(eps_name,final_list,PATH)
             print("save ----> ", eps_name, " file successfully!")
             num_eps_saved += 1
@@ -91,14 +92,18 @@ def format_data(data, PATH):
     print("Num of episode saved : ",num_eps_saved)
 
 def main():
-    file = "out_qtable0_3499.csv"
+    # file = "out_qtable0_3499.csv"
     # file = "testqtable.csv"
+    file = "q_table_cifar10.csv"
     data = get_data_from_csv(file)
 
-    PATH = "/homes/nj2217/PROJECT/VISUALIZE/FORMATTED_EPS_FILE/"
-    PATH = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE/"
+    # PATH = "/homes/nj2217/PROJECT/VISUALIZE/FORMATTED_EPS_FILE/"
+    # PATH = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE/"
 
-    format_data(data, PATH)
+    CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
+    # INPUT_FILE_WITH_PATH = os.path.join(PATH_DATASET,INPUT_FILE)
+    OUTPUT_PATH= CURRENT_WORKING_DIR
+    format_data(data, OUTPUT_PATH)
 
 if __name__ == "__main__":
     main()

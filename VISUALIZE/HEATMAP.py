@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'/homes/nj2217/PROJECT/TMP4_CLEAN_CODE')
+sys.path.insert(0,'/homes/nj2217/FINAL_PROJECT/MAIN')
 
 from HELPER_FUNCTION import *
 from FORMAT_TO_SNS_FORMAT import format_data
@@ -88,35 +88,40 @@ def create_vdo(path,vdo_name, framerate):
 #    os.system("cd /vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG")
     os.system("ffmpeg -framerate "+str(framerate)+" -i episode_%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p "+path+"/"+vdo_name)
     print("Create VDO of HEATMAP png_file named: ", vdo_name," successfully!!!")
-    
+
 def main():
-    input_file = "q_table0-3499.csv"
-    output_file = "out_qtable0_3499.csv"
-    input_file = "q_table_cifar10_sq_no_exp.csv"
-    output_file = "out_q_table_cifar10_sq_no_exp.csv"
-  #  remove_space_csv(input_file,output_file)
-
-    DIR = "/homes/nj2217/PROJECT/VISUALIZE/FORMATTED_EPS_FILE"
-    SAVING_DIR = "/homes/nj2217/PROJECT/VISUALIZE/HEATMAP_PNG/"
-
-    DIR = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE"
-    SAVING_DIR = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG/"
+    # input_file = "q_table0-3499.csv"
+    # output_file = "out_qtable0_3499.csv"
+    # input_file = "q_table_cifar10_sq_no_exp.csv"
+    # output_file = "out_q_table_cifar10_sq_no_exp.csv"
+    input_file = "main.csv"
+    output_file = "format_main.csv"
+    remove_space_csv(input_file,output_file)
 
     data = get_data_from_csv(output_file)
-    PATH = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE/"
-  #  format_data(data, PATH)
+    # CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
+    # OUTPUT_PATH= CURRENT_WORKING_DIR
+    # OUTPUT_PATH ="/vol/bitbucket/nj2217/HEATMAP/SNS_Q_TABLE"
+    OUTPUT_EP_FILE = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/EPISODE/"
+    format_data(data, OUTPUT_EP_FILE)
 
-    input_folder_loc = DIR
-    output_folder_loc = SAVING_DIR
+    # DIR = "/homes/nj2217/PROJECT/VISUALIZE/FORMATTED_EPS_FILE"
+    # SAVING_DIR = "/homes/nj2217/PROJECT/VISUALIZE/HEATMAP_PNG/"
+    # DIR = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE"
+    # SAVING_DIR = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG/"
+    # input_folder_loc = DIR
+    # output_folder_loc = SAVING_DIR
+
+
     print("Begin execution!")
   #  execute(input_folder_loc, output_folder_loc)
     print("End execution!")
 
-    VDO_NAME = "TEST_HEATMAP.mp4"
-    FRAMERATE = 25
-    VDO_PATH = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG"
-    create_vdo(VDO_PATH,VDO_NAME,FRAMERATE)
-    
+    # VDO_NAME = "TEST_HEATMAP.mp4"
+    # FRAMERATE = 25
+    # VDO_PATH = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG"
+    # create_vdo(VDO_PATH,VDO_NAME,FRAMERATE)
+
 if "__main__" == __name__:
     main()
 
