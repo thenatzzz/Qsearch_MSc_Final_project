@@ -90,18 +90,11 @@ def create_vdo(path,vdo_name, framerate):
     print("Create VDO of HEATMAP png_file named: ", vdo_name," successfully!!!")
 
 def main():
-    # input_file = "q_table0-3499.csv"
-    # output_file = "out_qtable0_3499.csv"
-    # input_file = "q_table_cifar10_sq_no_exp.csv"
-    # output_file = "out_q_table_cifar10_sq_no_exp.csv"
     input_file = "main.csv"
     output_file = "format_main.csv"
     remove_space_csv(input_file,output_file)
 
     data = get_data_from_csv(output_file)
-    # CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
-    # OUTPUT_PATH= CURRENT_WORKING_DIR
-    # OUTPUT_PATH ="/vol/bitbucket/nj2217/HEATMAP/SNS_Q_TABLE"
     OUTPUT_EP_FILE = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/EPISODE/"
     format_data(data, OUTPUT_EP_FILE)
 
@@ -109,12 +102,13 @@ def main():
     # SAVING_DIR = "/homes/nj2217/PROJECT/VISUALIZE/HEATMAP_PNG/"
     # DIR = "/vol/gpudata/nj2217/HEATMAP/SNS_Q_TABLE"
     # SAVING_DIR = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG/"
-    # input_folder_loc = DIR
-    # output_folder_loc = SAVING_DIR
 
+    HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG/"
 
+    input_folder_loc = OUTPUT_EP_FILE
+    output_folder_loc = HEATMAP_PNG_DIR
     print("Begin execution!")
-  #  execute(input_folder_loc, output_folder_loc)
+    execute(input_folder_loc, output_folder_loc)
     print("End execution!")
 
     # VDO_NAME = "TEST_HEATMAP.mp4"
