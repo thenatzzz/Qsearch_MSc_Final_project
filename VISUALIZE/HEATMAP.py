@@ -30,6 +30,12 @@ def add_zero(file_name):
         name = '000'+name
     return 'episode_'+name
 
+def get_episode_number(file_path):
+
+    start_index = file_path.index("episode_")
+    episode_name = file_path[start_index:-1]
+    return episode_name.strip('.csv')
+
 def create_heatmap(file_name,input_folder_loc, output_folder_loc):
     # file_name = 'episode_3115.csv'
     print("initial file_name: ",file_name)
@@ -45,6 +51,9 @@ def create_heatmap(file_name,input_folder_loc, output_folder_loc):
     ax = sns.heatmap(eps_file, linewidths = 1, vmin=vmin, vmax=vmax,cmap = cmap, annot=True, fmt='.4g')
     ax.set_yticklabels(ax.get_yticklabels(), rotation = 0, fontsize = 10)
     ax2 = ax.get_figure()
+
+    title_name = get_episode_number(file_name)
+    ax.set_title(title_name)
 
     # SAVING_DIR = "/homes/nj2217/PROJECT/VISUALIZE/HEATMAP_PNG/"
     SAVING_DIR = output_folder_loc
@@ -69,7 +78,6 @@ def create_heatmap(file_name,input_folder_loc, output_folder_loc):
     # plt.show()
 
 def execute(input_folder_loc, output_folder_loc):
-    # DIR = "/homes/nj2217/PROJECT/VISUALIZE/FORMATTED_EPS_FILE"
     DIR = input_folder_loc
     number_of_file = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))])
     count = 0
@@ -104,6 +112,8 @@ def main():
     # SAVING_DIR = "/vol/gpudata/nj2217/HEATMAP/HEATMAP_PNG/"
 
     HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG/"
+    HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG2/"
+
 
     input_folder_loc = OUTPUT_EP_FILE
     output_folder_loc = HEATMAP_PNG_DIR
@@ -121,4 +131,4 @@ if "__main__" == __name__:
 
 
 # create vdo
-# ffmpeg -framerate 25 -i episode_%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p HEATMAP.mp4
+# ffmpeg -framerate 25 -i episode_%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p HEATMAP_cifar10.mp4
