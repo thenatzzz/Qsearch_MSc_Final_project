@@ -12,11 +12,17 @@ INDEX_ACCURACY = -2
 
 def create_dist_chart(data,dataset,save_path):
 
-    sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='dodgerblue')
+    # sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='dodgerblue')
+    sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='blue')
+    # sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='blue').set(xlim=(0,1))
+
     # sns.distplot(data[2000:3000], label='epsilon 0.9-0.7:\n 1000 episodes',color='darkorange')
+
     # sns.distplot(data[3000:-1], label='epsilon 0.6-0.1:\n 800 episodes',color='mediumseagreen')
 
-    sns.distplot(data[3750:3800], label='epsilon 0.1:\n 150 episodes',color='mediumseagreen')
+    # sns.distplot(data[3750:3800], label='epsilon 0.1:\n 150 episodes',color='mediumseagreen')
+    sns.distplot(data[3750:3800], label='epsilon 0.1:\n 150 episodes',color='orange')
+    # sns.distplot(data[3750:3800], label='epsilon 0.1:\n 150 episodes',color='orange').set(xlim=(0,1))
 
     plt.legend()
     plt.title('Model Accuracy Distribution on {} dataset'.format(dataset))
