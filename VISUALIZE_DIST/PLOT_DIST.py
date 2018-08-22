@@ -28,11 +28,16 @@ def create_dist_chart(data,dataset,save_path):
 
     pm = Symbol(u'±')
     std_data = "Mean {} 1 std.({})".format(pm,std)
-    # std_line = plt.axvline(mean+std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
-    # std_line = plt.axvline(mean-std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
+    std_line = plt.axvline(mean+std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
+    std_line = plt.axvline(mean-std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
+
+
 
     plt.legend(handles= [mean_line,median_line,std_line,num_model_line])
-    sns.distplot(data)
+    # plt.legend(handles= [mean_line,median_line,num_model_line])
+
+    sns.distplot(data,kde_kws={'clip': (0.0, 1.0)}).set(xlim=(0,1))
+
 
     plt.title('Distribution of Validation Accuracy of Model found by Random Search on {}'.format(dataset))
     plt.xlabel('Validation Accuracy')
@@ -45,7 +50,7 @@ def main():
     FOLDER = 'MODEL_WITH_RANDOM_SEARCH'
 
     DATASET_FOLDER = 'MNIST'
-    DATASET_FOLDER = 'CIFAR-10'
+    # DATASET_FOLDER = 'CIFAR-10'
 
     INPUT_FILE = 'original_model.csv'
 
