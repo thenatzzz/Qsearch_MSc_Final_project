@@ -28,8 +28,8 @@ def create_dist_chart(data,dataset,save_path):
 
     pm = Symbol(u'±')
     std_data = "Mean {} 1 std.({})".format(pm,std)
-    std_line = plt.axvline(mean+std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
-    std_line = plt.axvline(mean-std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
+    # std_line = plt.axvline(mean+std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
+    # std_line = plt.axvline(mean-std, color= 'violet', linestyle='dashed', linewidth=2, label= std_data)
 
     plt.legend(handles= [mean_line,median_line,std_line,num_model_line])
     sns.distplot(data)
