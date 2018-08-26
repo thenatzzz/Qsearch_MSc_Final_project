@@ -80,7 +80,7 @@ def cnn_model_fn(model,num_layer,model_from_csv):
     model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(32, 32, 3)))
     print("num_layer: ", num_layer)
     for index in range(1,num_layer+1):
-        print("index : ", index)
+        #print("index : ", index)
         if model_from_csv[index] == 'c_1':
             add_conv2D(model,c_1)
         elif model_from_csv[index] == 'c_2':

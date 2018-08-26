@@ -1,0 +1,17 @@
+Model,1st Layer,2nd Layer,3rd Layer,4th Layer,Accuracy,Loss
+model_1,c_6,c_8,c_12,c_1,Unknown,Unknown
+model_2,c_6,c_8,c_12,c_2,Unknown,Unknown
+model_3,c_6,c_8,c_12,c_3,Unknown,Unknown
+model_4,c_6,c_8,c_12,c_4,Unknown,Unknown
+model_5,c_6,c_8,c_12,c_5,Unknown,Unknown
+model_6,c_6,c_8,c_12,c_6,Unknown,Unknown
+model_7,c_6,c_8,c_12,c_7,Unknown,Unknown
+model_8,c_6,c_8,c_12,c_8,Unknown,Unknown
+model_9,c_6,c_8,c_12,c_9,Unknown,Unknown
+model_10,c_6,c_8,c_12,c_10,Unknown,Unknown
+model_11,c_6,c_8,c_12,c_11,Unknown,Unknown
+model_12,c_6,c_8,c_12,c_12,Unknown,Unknown
+model_13,c_6,c_8,c_12,m_1,Unknown,Unknown
+model_14,c_6,c_8,c_12,m_2,Unknown,Unknown
+model_15,c_6,c_8,c_12,m_3,Unknown,Unknown
+model_16,c_6,c_8,c_12,s,Unknown,Unknown
