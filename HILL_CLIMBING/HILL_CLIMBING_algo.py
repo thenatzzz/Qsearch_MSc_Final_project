@@ -18,18 +18,24 @@ INDEX_MODEL = 0
 INDEX_ACCURACY = -2
 
 def create_empty_array():
+    # FUNCTION DESCRIPTION: create empty array equal to state total state space
+    #                       with each row consists of model_name,topologies,
+    #                       accuracy and loss with '-'
     final_array = []
     for _ in range(MAX_ACTION*MAX_STATE):
         temp_array = ['-']*MAX_INDEX_MODEL_ARRAY
         final_array.append(temp_array)
     return final_array
 
+
 def init_layer_action(final_array,index_hill_level):
+    # FUNCTION DESCRIPTION: initialize array with each possible action
     for index in range(MAX_ACTION):
         final_array[index+index_hill_level*MAX_ACTION][index_hill_level+1] = LAYER_ACTION[index]
     return final_array
 
 def use_best_layer(final_array,best_layer,index_hill_level):
+    # FUNCTION DESCRIPTION: assign the layer with highest accuracy for next training
     start_index = (1+index_hill_level)*MAX_ACTION
     final_index = MAX_STATE*MAX_ACTION
     for index in range(start_index,final_index):
@@ -37,6 +43,8 @@ def use_best_layer(final_array,best_layer,index_hill_level):
     return final_array
 
 def hill_climbing(DATASET,SAVE_FILE):
+    # FUNCTION DESCRIPTION: do hill climbing algorithm to find the topology that gives
+    #                       highest validation accuracy
     model_num = 0
     final_array = create_empty_array()
 
