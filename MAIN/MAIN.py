@@ -29,11 +29,12 @@ if __name__ == "__main__":
     #
     '''
     #Get random topologies then save to csv file
-    INPUT_FILE_NAME_RANDOM_TOPO  = 'test_random_topology.csv'
-    NUM_MODEL = 1500
+    # INPUT_FILE_NAME_RANDOM_TOPO  = 'test_random_topology.csv'
+    INPUT_FILE_NAME = 'test_random_topology.csv'
+    # NUM_MODEL = 20
     OUTPUT_FILE_NAME = "new_trained_cifar10.csv"
-    INPUT_FILE_NAME = get_random_topology(NUM_MODEL, INPUT_FILE_NAME_RANDOM_TOPO)
-    print(INPUT_FILE_NAME)
+    # INPUT_FILE_NAME = get_random_topology(NUM_MODEL, INPUT_FILE_NAME_RANDOM_TOPO)
+    # print(INPUT_FILE_NAME)
     pre_train_model_cifar10(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
     '''
     '''
@@ -46,8 +47,13 @@ if __name__ == "__main__":
     print("best_topology: ", best_topology)
     verify_model(best_topology,DATASET)
     '''
-
+    '''
     model = ['c_1','c_8','c_12','c_9']
     DATASET = 'cifar10'
     # DATASET = 'mnist'
     verify_model(model, DATASET)
+    '''
+
+    INPUT_FILE_NAME = 'test_random_topology_cifar10.csv'
+    OUTPUT_FILE_NAME = "new_trained_cifar10_2.csv"
+    pre_train_model_cifar10(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
