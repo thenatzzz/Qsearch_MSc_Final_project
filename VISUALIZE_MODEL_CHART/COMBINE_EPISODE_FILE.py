@@ -5,10 +5,16 @@ sys.path.insert(0,'/homes/nj2217/FINAL_PROJECT/MAIN')
 from HELPER_FUNCTION import *
 
 def list_file_in_path(path):
+    ############################################################################
+    # FUNCTION DESCRIPTION: return all file in the specified path in one array
+    ############################################################################
     array_file_name = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))]
     return array_file_name
 
 def join_path_to_file(FILE_LIST, PATH_DATASET):
+    ############################################################################
+    # FUNCTION DESCRIPTION: join specifed path to specifed file
+    ############################################################################
     if isinstance(FILE_LIST,list):
         for i in range(len(FILE_LIST)):
             FILE_LIST[i] = os.path.join(PATH_DATASET,FILE_LIST[i])
