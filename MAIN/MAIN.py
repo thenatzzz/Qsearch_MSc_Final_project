@@ -55,5 +55,5 @@ if __name__ == "__main__":
     '''
 
     INPUT_FILE_NAME = 'test_random_topology_cifar10.csv'
-    OUTPUT_FILE_NAME = "new_trained_cifar10_2.csv"
+    OUTPUT_FILE_NAME = "new_trained_cifar10_4.csv"
     pre_train_model_cifar10(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
