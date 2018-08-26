@@ -12,6 +12,10 @@ ACC_INDEX = -2
 LOSS_INDEX = -1
 
 def get_column(data,criteria,how_many_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION: get value in the column according to number of model
+    #                       and criteria.
+    ############################################################################
     col_list = []
     for index in range(how_many_model):
         if criteria == 'loss':
@@ -22,12 +26,20 @@ def get_column(data,criteria,how_many_model):
     return np.asarray(col_list)
 
 def calculate_avg(index,data,index_criteria):
+    ############################################################################
+    # FUNCTION DESCRIPTION: compute average of data according to criteria
+    ############################################################################
     avg = 0
     for i in range(index+1):
         avg += float(data[i][index_criteria])
+
     return avg/(index+1)
 
 def compute_avg_data(data,criteria):
+    ############################################################################
+    # FUNCTION DESCRIPTION: compute running average value of data such as loss, accuracy
+    #                       and return a list that contains result
+    ############################################################################
     tmp_list = []
     if criteria == 'accuracy':
         index_criteria = ACC_INDEX
@@ -42,12 +54,19 @@ def compute_avg_data(data,criteria):
     return final_list
 
 def calculate_avg_per_ep(tracking_index,data,index_criteria,episode_interval):
+    ############################################################################
+    # FUNCTION DESCRIPTION: calculte interval per episode
+    ############################################################################
+
     avg = 0
     for i in range(tracking_index, tracking_index+episode_interval):
         avg += float(data[i][index_criteria])
     return np.round(avg/episode_interval,ROUND_DIGIT)
 
 def compute_episode_data(episode_interval, data, criteria):
+    ############################################################################
+    # FUNCTION DESCRIPTION: compute avg per episode and return resulting array
+    ############################################################################
 
     tmp_list = []
     if criteria == 'accuracy':
@@ -55,6 +74,7 @@ def compute_episode_data(episode_interval, data, criteria):
     elif criteria == 'loss':
         index_criteria = LOSS_INDEX
     tracking_index = 0
+
     while tracking_index < len(data):
         avg = calculate_avg_per_ep(tracking_index, data, index_criteria, episode_interval)
         tmp_list.append(avg)
@@ -63,23 +83,22 @@ def compute_episode_data(episode_interval, data, criteria):
         checking_index = tracking_index + episode_interval
 
         if checking_index > len(data):
-
             episode_interval = len(data) - tracking_index
             avg = calculate_avg_per_ep(tracking_index, data, index_criteria, episode_interval)
             tmp_list.append(avg)
             break
+
     return tmp_list
 
 def create_area_chart(data,criteria,list,DATASET = None):
+    ############################################################################
+    # FUNCTION DESCRIPTION: create area chart of just one data (running avg reward)
+    ############################################################################
 
     sns.set_style("whitegrid")
-
-    # Color palette
     blue, = sns.color_palette("muted", 1)
 
-    # Create data
     x = np.arange(len(list))
-
     y = list
 
     # Make the plot
@@ -100,6 +119,10 @@ def create_area_chart(data,criteria,list,DATASET = None):
     plt.show()
 
 def format_list_episode(normal_list, episode_list, episode_interval):
+    ############################################################################
+    # FUNCTION DESCRIPTION: format list according to episode
+    ############################################################################
+
     temp_list = []
     count = 0
     count_interval = 0
@@ -116,6 +139,10 @@ def format_list_episode(normal_list, episode_list, episode_interval):
     return temp_list
 
 def create_area_chart_2_graph(data,criteria,list,list2,x_axis,saved_fig_name,DATASET = None):
+    ############################################################################
+    # FUNCTION DESCRIPTION: create 2 graphs of running avg reward and avg reward per episode
+    ############################################################################
+
     sns.set_style("whitegrid")
     blue, = sns.color_palette("muted", 1)
 
@@ -154,12 +181,15 @@ def create_area_chart_2_graph(data,criteria,list,list2,x_axis,saved_fig_name,DAT
         dataset = "MNIST"
     else:
         dataset = "Data"
-    print(dataset)
     plt.title("Q-Learning Performance on "+dataset)
     plt.savefig(saved_fig_name)
     plt.show()
 
 def create_x_axis(data, episode_interval):
+    ############################################################################
+    # FUNCTION DESCRIPTION: create actual x axis without skipping data
+    ############################################################################
+
     temp_list = []
     num_interval = len(data) // episode_interval
 
@@ -168,15 +198,12 @@ def create_x_axis(data, episode_interval):
         temp_list.append(i)
 
         for j in range(episode_interval-1):
-
             if len(data) - len(temp_list) < episode_interval and len(temp_list) > len(data):
                 for j in range(len(temp_list), len(data)-1):
                     temp_list.append('')
                 continue
-
             temp_list.append('')
 
-    print(len(temp_list))
     return temp_list
 
 def main():
@@ -185,6 +212,7 @@ def main():
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     FOLDER = 'FINISHED_MODEL'
 
+    ############# DATASET: MNIST ###############################################
     DATASET = 'mnist'
     DATASET_FOLDER = 'MNIST'
     # MAIN_FOLDER = 'MNIST_1'
@@ -192,6 +220,7 @@ def main():
     MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
+    ############# DATASET: CIFAR-10 ###############################################
     # DATASET = 'cifar10'
     # DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'
@@ -211,17 +240,15 @@ def main():
     data = get_data_from_csv(INPUT_FILE_WITH_PATH)
     data = format_data_without_header(data)
     list = compute_avg_data(data,CRITERIA)
-    # create_area_chart(data,CRITERIA,list,DATASET)
+    # create_area_chart(data,CRITERIA,list,DATASET) ### uncomment to create chart with running average
 
     EPISODE_INTERVAL = 300
-    # EPISODE_INTERVAL = 200
-
 
     INPUT_FILE = INPUT_FILE.strip('.csv')
     GRAPH_NAME = INPUT_FILE + '.png'
     list_2 = compute_episode_data(EPISODE_INTERVAL,data,CRITERIA)
     list_2 = format_list_episode(list, list_2, EPISODE_INTERVAL)
-    # create_area_chart(data,CRITERIA,list_2,DATASET)
+    # create_area_chart(data,CRITERIA,list_2,DATASET) ### uncomment to create chart with running average
     x_axis_eps_interval = create_x_axis(list_2,EPISODE_INTERVAL)
 
     GRAPH_FOLDER = 'MODEL_GRAPH'
