@@ -6,6 +6,9 @@ from HELPER_FUNCTION import *
 INDEX_MODEL_NAME = 0
 
 def fix_model_number(data):
+    ############################################################################
+    # FUNCTION DESCRIPTION: function to correct the wrong model number
+    ############################################################################
     for i in range(len(data)):
         data[i][INDEX_MODEL_NAME] = 'model_'+str(i)
     return data
@@ -15,12 +18,14 @@ def main():
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     FOLDER = 'FINISHED_MODEL'
 
+    ########################## MNIST DATASET ###################################
     DATASET_FOLDER = 'MNIST'
     MAIN_FOLDER = 'MNIST_1' # does not have episode_table
     # MAIN_FOLDER = 'MNIST_2'
     # MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
+    ########################## CIFAR-10 DATASET ###################################
     # DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_2'   # does not have episode_table

@@ -6,6 +6,9 @@ from HELPER_FUNCTION import *
 INDEX_EPS_NAME = 0
 
 def remove_repeat_eps(data):
+    ############################################################################
+    # FUNCTION DESCRIPTION: remove duplicate episodes
+    ############################################################################
     final_list = []
     index_elem = 0
     for datum in data:
@@ -21,12 +24,14 @@ def main():
     CURRENT_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
     FOLDER = 'FINISHED_MODEL'
 
+    ########################## MNIST DATASET ###################################
     DATASET_FOLDER = 'MNIST'
     # MAIN_FOLDER = 'MNIST_1' # does not have episode_table
     # MAIN_FOLDER = 'MNIST_2'
     MAIN_FOLDER = 'MNIST_3'
     # MAIN_FOLDER = 'MNIST_4'
 
+    ########################## CIFAR-10 DATASET ###################################
     # DATASET_FOLDER = 'CIFAR-10'
     # MAIN_FOLDER = 'CIFAR-10_1'   # does not have episode_table
     # MAIN_FOLDER = 'CIFAR-10_2'   # does not have episode_table
