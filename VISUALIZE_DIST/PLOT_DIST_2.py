@@ -11,6 +11,9 @@ sns.set(color_codes=True)
 INDEX_ACCURACY = -2
 
 def create_dist_chart(data,dataset,save_path):
+    ############################################################################
+    # FUNCTION DESCRIPTION: create distribution graph with different episode according to specific epsilon
+    ############################################################################
 
     # sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='dodgerblue')
     sns.distplot(data[:2000], label='epsilon 1 (Random Search):\n 2000 episodes',color='blue')
