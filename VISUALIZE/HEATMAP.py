@@ -125,7 +125,7 @@ if "__main__" == __name__:
 
 ################# TO CREATE VIDEO OF PNG FILES #################################
 # REQUIREMENTs: 1. need ffmpeg installed
-#               2. execute command below to create vdo
+#               2. execute command in folder that png files are located below to create vdo
 # note: can change framerate, file name, vdo output name
 # ffmpeg -framerate 25 -i episode_%04d.png -c:v libx264 -r 30 -pix_fmt yuv420p HEATMAP_cifar10.mp4
 ################################################################################
