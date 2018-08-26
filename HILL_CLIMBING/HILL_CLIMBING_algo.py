@@ -31,37 +31,39 @@ def init_layer_action(final_array,index_hill_level):
 
 def use_best_layer(final_array,best_layer,index_hill_level):
     start_index = (1+index_hill_level)*MAX_ACTION
-    # print(start_index)
     final_index = MAX_STATE*MAX_ACTION
     for index in range(start_index,final_index):
-        # print("index_hill_level->",index_hill_level)
         final_array[index][index_hill_level+1] = best_layer
     return final_array
 
-def hill_climbing(DATASET):
+def hill_climbing(DATASET,SAVE_FILE):
     model_num = 0
     final_array = create_empty_array()
 
     for index_hill_level in range(MAX_STATE):
         final_array = init_layer_action(final_array,index_hill_level)
-        # print(final_array)
+        accuracy_array = []
+
         for index_layer_in_hill in range(MAX_ACTION):
-            accuracy_array = []
+
             for index_model_array in range(MAX_INDEX_MODEL_ARRAY):
                 current_model_array = final_array[index_layer_in_hill+index_hill_level*MAX_ACTION]
                 current_model_array[INDEX_MODEL] = 'model_'+str(model_num)
 
-                if DATASET == 'cifar10':
-                    accuracy = random.uniform(0, 1)
-                    # accuracy = train_model_cifar10(current_model_array, DATASET)
-                elif DATASET == 'mnist':
-                    accuracy = random.uniform(0, 1)
-                    # accuracy = train_model_mnist(current_model_array,DATASET)
-                current_model_array[INDEX_ACCURACY] =  accuracy
-                accuracy_array.append(accuracy)
+            if DATASET == 'cifar10':
+                # accuracy = random.uniform(0, 1)
+                accuracy = train_model_cifar10(current_model_array, DATASET)
+            elif DATASET == 'mnist':
+                # accuracy = random.uniform(0, 1)
+                accuracy = train_model_mnist(current_model_array,DATASET)
 
+            accuracy_array.append(accuracy)
+            current_model_array[INDEX_ACCURACY] =  accuracy
 
+            eval_result = ['Unknown',accuracy]
             model_num += 1
+
+            save_trained_model_in_csv(SAVE_FILE,current_model_array,eval_result)
 
         max_accuracy = max(accuracy_array)
         index_best_layer = accuracy_array.index(max_accuracy)
@@ -74,7 +76,8 @@ def hill_climbing(DATASET):
 
 def main():
     DATASET = 'cifar10'
-    hill_climbing(DATASET)
+    SAVE_FILE = 'hc_cifar10.csv'
+    hill_climbing(DATASET,SAVE_FILE)
 
 if __name__ == '__main__':
     main()
