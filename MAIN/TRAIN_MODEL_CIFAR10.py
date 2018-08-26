@@ -50,18 +50,27 @@ m_3 = [5,3]
 s = [0]
 
 def add_conv2D(model, layer_param):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     num_filters = layer_param[0]
     size_kernel = layer_param[1]
     num_stride = layer_param[2]
     model.add(Conv2D(num_filters, kernel_size=(size_kernel, size_kernel),border_mode='same', activation='relu'))
 
 def add_maxpool2D(model, layer_param):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     size_kernel = layer_param[0]
     num_stride = layer_param[1]
     model.add(MaxPooling2D(pool_size=(size_kernel, size_kernel),strides= (num_stride,num_stride),border_mode='same' ))
     model.add(Dropout(0.25))
 
 def load_data_cifar10():
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     # The data, split between train and test sets:
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
     print('x_train shape:', x_train.shape)
@@ -70,12 +79,18 @@ def load_data_cifar10():
     return (x_train, y_train), (x_test, y_test)
 
 def convert_class_vec2matrix(y_train, y_test):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     # Convert class vectors to binary class matrices.
     y_train = keras.utils.to_categorical(y_train, NUM_CLASSES)
     y_test = keras.utils.to_categorical(y_test, NUM_CLASSES)
     return y_train, y_test
 
 def cnn_model_fn(model,num_layer,model_from_csv):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     print("model_from_csv: ",model_from_csv)
     model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(32, 32, 3)))
     print("num_layer: ", num_layer)
@@ -122,6 +137,9 @@ def cnn_model_fn(model,num_layer,model_from_csv):
     return model
 
 def format_data(x_train,x_test):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     x_train = x_train.astype('float32')
     x_test = x_test.astype('float32')
     x_train /= 255
@@ -129,6 +147,9 @@ def format_data(x_train,x_test):
     return x_train, x_test
 
 def no_data_augmentation(model,x_train,x_test,y_train,y_test):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     print('Not using data augmentation.')
     model.fit(x_train, y_train,
             batch_size=BATCH_SIZE,
@@ -138,6 +159,9 @@ def no_data_augmentation(model,x_train,x_test,y_train,y_test):
             shuffle=True)
 
 def data_augmentation(model,x_train,x_test,y_train,y_test):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     print('Using real-time data augmentation.')
     # This will do preprocessing and realtime data augmentation:
     datagen = ImageDataGenerator(
@@ -175,6 +199,9 @@ def data_augmentation(model,x_train,x_test,y_train,y_test):
                          workers=4)
 
 def save_model_keras_cifar10(model,model_from_csv):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     model_name = 'keras_cifar10_'
     model_name = model_name + model_from_csv[0] + '.h5'
 
@@ -186,6 +213,9 @@ def save_model_keras_cifar10(model,model_from_csv):
     print('Saved trained model at %s ' % model_path)
 
 def train_model_cifar10( single_model, is_verify = False):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     file = MAIN_FILE
     is_complete_model = check_complete_model(single_model)
 
@@ -239,6 +269,9 @@ def train_model_cifar10( single_model, is_verify = False):
     return accuracy
 
 def pre_train_model_cifar10(file_name, output_file_name):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global MAIN_FILE
     MAIN_FILE = output_file_name
 

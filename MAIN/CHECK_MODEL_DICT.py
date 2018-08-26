@@ -5,6 +5,9 @@ INDEX_ACCURACY = -2
 INDEX_LOSS = -1
 
 def get_list(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION: get bad topology in list according to thresold and criteria
+    ############################################################################
     final_list = []
     for i in range(len(data)):
         if target == "accuracy":
@@ -14,27 +17,46 @@ def get_list(data,target):
     return final_list
 
 def get_mean(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
+
     final_list = get_list(data,target)
     mean = statistics.mean(final_list)
     return mean
 
 def get_var(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_list = get_list(data,target)
     var = statistics.variance(final_list)
     return var
 
 def get_standard_deviation(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_list  = get_list(data,target)
     std_dev = statistics.stdev(final_list)
     return std_dev
 
 def get_accuracy_model(model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     return model[INDEX_ACCURACY]
 
 def get_loss_model(model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     return model[INDEX_LOSS]
 
 def get_number_model(data, target, above_or_below,criteria):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_list = []
     val_criteria = 0
     if criteria == 'mean':
@@ -62,6 +84,9 @@ def get_number_model(data, target, above_or_below,criteria):
     return len(temp_list) , temp_list
 
 def get_best_topology(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     best_model = data[0]
     best_model_acc = get_accuracy_model(best_model)
     current_model = ""
@@ -76,6 +101,9 @@ def get_best_topology(data,target):
     return best_model
 
 def get_worst_topology(data,target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     worst_model = data[0]
     worst_model_acc = get_accuracy_model(worst_model)
     current_model = ""
@@ -86,7 +114,6 @@ def get_worst_topology(data,target):
         if current_model_acc < worst_model_acc:
             worst_model_acc = current_model_acc
             worst_model = current_model
-    # print(worst_model)
     return worst_model
 
 def main():

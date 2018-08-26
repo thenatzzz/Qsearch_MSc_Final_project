@@ -2,6 +2,9 @@ from TRAIN_MODEL_MNIST import train_model_mnist
 from TRAIN_MODEL_CIFAR10 import train_model_cifar10
 
 def format_into_normal_form(single_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     FIRST_LAYER = single_model[0]
     SECOND_LAYER = single_model[1]
     THIRD_LAYER = single_model[2]
@@ -12,6 +15,9 @@ def format_into_normal_form(single_model):
     return single_model
 
 def get_original_format(best_model_dict):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     tmp_list = []
     tmp_list.append(best_model_dict['Layer 1'][0])
     tmp_list.append(best_model_dict['Layer 2'][0])

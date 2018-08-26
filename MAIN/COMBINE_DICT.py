@@ -9,14 +9,23 @@ LAYER_SOFTMAX = 's'
 MAX_NUM_LAYER = 4
 
 def list_file_in_path(path):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     array_file_name = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))]
     return array_file_name
 
 def add_path_to_file(path,file):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     file_with_path = path + "/"+file
     return file_with_path
 
 def combine(path,array_file):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_list_data = []
     for file in array_file:
         file_with_path = add_path_to_file(path, file)
@@ -26,6 +35,9 @@ def combine(path,array_file):
     return final_list_data
 
 def fix_list(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_array = []
     num_model_fixed = 0
     for array in data_list:
@@ -46,6 +58,9 @@ def fix_list(data_list):
     return final_array
 
 def check_dup(data, final_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     model_name = data[0]
     for data_in_final in final_list:
         model_name_final_list = data_in_final[0]
@@ -54,6 +69,9 @@ def check_dup(data, final_list):
     return False
 
 def delete_duplicate(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_list = []
     num = 0
     for data in data_list:
@@ -66,31 +84,49 @@ def delete_duplicate(data_list):
     return final_list
 
 def strip_model_tag(data):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_model_num = data[0].strip('model_')
     return int(temp_model_num)
 
 def strip_model_list(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     model_index = 0
     for data in data_list:
         data[model_index] = strip_model_tag(data)
     return data_list
 
 def sort_data(data_list, index_to_sort):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     data_list = sorted(data_list, key = itemgetter(index_to_sort),reverse = True)
     return data_list
 
 def sort_data_by_name(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     data_list = strip_model_list(data_list)
     model_name_index = 0
     data_list = sort_data(data_list, model_name_index )
     return data_list
 
 def attach_model_tag(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     for data in data_list:
         data[0] = "model_"+str(data[0])
     return data_list
 
 def fix_layer(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     LETTER_INDEX  =0
     for data in data_list:
         for index in range(1,5):
@@ -98,6 +134,9 @@ def fix_layer(data_list):
     return data_list
 
 def clean_model_dict(data_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     modified_data = fix_list(data_list)
     modified_data = delete_duplicate(modified_data)
     modified_data = sort_data_by_name(modified_data)
@@ -106,6 +145,9 @@ def clean_model_dict(data_list):
     return modified_data
 
 def combine_file(path,output_file):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     array_files = list_file_in_path(path)
     data = combine(path,array_files)
     # print("Before clean-> length data: ", len(data))
@@ -115,15 +157,24 @@ def combine_file(path,output_file):
     return data
 
 def remove_data_initial_ep(data,initial_episode):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     return data[initial_episode+1:]
 
 def get_top_model(sorted_data,num_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_list = []
     for i in range(num_model):
         temp_list.append(sorted_data[i])
     return np.asarray(temp_list)
 
 def get_mean_initial_ep(data,initial_episode,index_target):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     sum = 0
     for i in range(initial_episode):
         sum += float(data[i][index_target])
@@ -146,21 +197,21 @@ def main():
     file_path = "/homes/nj2217/FINAL_PROJECT/MAIN/FINISHED_MODEL/"
 
     ''' DATASET = mnist '''
-  #   '''1 mnist'''
+    #   '''1 mnist'''
     # c_2,c_6,c_3,c_1
     # total ep: 3500 : 2500/500/500 exp:10
     # file_type = "MNIST/"
     # main_folder = "CLEAN_CODE/"
     # main_file = "mnist_model_dict.csv"
     # initial_episode = 2500
-  #   # Average of 2500 model trained at epsilon 1.0: 0.9649
-  # #   The list of top  5  are as follows:
-  # # [['model_3186' 'c_1' 'c_5' 'c_10' 'c_1' '0.9765' '0.078444734']
-  # # ['model_2796' 'c_4' 'c_10' 'c_8' 'm_3' '0.9762' '0.08101152']
-  # # ['model_3357' 'c_2' 'c_1' 'c_9' 'm_2' '0.9761' '0.0782957']
-  # # ['model_4120' 'c_2' 'c_1' 'c_12' 'c_1' '0.976' '0.07825506']
-  # # ['model_3045' 'c_5' 'c_11' 'c_7' 'c_4' '0.9759' '0.08239954']]
-  # # Last model is :  ['model_4481', 'm_3', 'c_6', 'm_1', 'c_1', '0.794', '0.7050015']
+    #   # Average of 2500 model trained at epsilon 1.0: 0.9649
+    # #   The list of top  5  are as follows:
+    # # [['model_3186' 'c_1' 'c_5' 'c_10' 'c_1' '0.9765' '0.078444734']
+    # # ['model_2796' 'c_4' 'c_10' 'c_8' 'm_3' '0.9762' '0.08101152']
+    # # ['model_3357' 'c_2' 'c_1' 'c_9' 'm_2' '0.9761' '0.0782957']
+    # # ['model_4120' 'c_2' 'c_1' 'c_12' 'c_1' '0.976' '0.07825506']
+    # # ['model_3045' 'c_5' 'c_11' 'c_7' 'c_4' '0.9759' '0.08239954']]
+    # # Last model is :  ['model_4481', 'm_3', 'c_6', 'm_1', 'c_1', '0.794', '0.7050015']
 
     '''2 mnist'''
     # c_1,c_6,c_5,m_2
@@ -286,32 +337,32 @@ def main():
     main_folder = "CIFAR10_5/"
     main_file = "cifar10_model_dict.csv"
     initial_episode = 2000
-   #  Last model is :  ['model_3096', 'c_12', 'c_5', 'c_11', 'c_10', '0.7239', '0.8542132089614868']
-   #  Mean of initial:  2000  is -->  0.7226369500000003
-   #  The list of top  5  are as follows:
-   # [['model_2467' 'c_11' 'm_3' 'c_9' 'c_12' '0.8017' '0.65138341755867']
-   # ['model_2563' 'c_10' 'm_3' 'c_12' 'c_12' '0.7967' '0.623005072593689']
-   # ['model_2965' 'c_12' 'm_1' 'c_11' 'c_11' '0.7966' '0.6526033192634583']
-   # ['model_2594' 'c_12' 'm_3' 'c_11' 'c_11' '0.7937' '0.6693723202705383']
-   # ['model_3014' 'c_10' 'm_1' 'c_12' 'c_3' '0.7896' '0.654450488114357']]
-   # val_acc = 0.7501
-   #  val_loss = 0.7637545
+    #  Last model is :  ['model_3096', 'c_12', 'c_5', 'c_11', 'c_10', '0.7239', '0.8542132089614868']
+    #  Mean of initial:  2000  is -->  0.7226369500000003
+    #  The list of top  5  are as follows:
+    # [['model_2467' 'c_11' 'm_3' 'c_9' 'c_12' '0.8017' '0.65138341755867']
+    # ['model_2563' 'c_10' 'm_3' 'c_12' 'c_12' '0.7967' '0.623005072593689']
+    # ['model_2965' 'c_12' 'm_1' 'c_11' 'c_11' '0.7966' '0.6526033192634583']
+    # ['model_2594' 'c_12' 'm_3' 'c_11' 'c_11' '0.7937' '0.6693723202705383']
+    # ['model_3014' 'c_10' 'm_1' 'c_12' 'c_3' '0.7896' '0.654450488114357']]
+    # val_acc = 0.7501
+    #  val_loss = 0.7637545
 
-   ''' mnist random search '''
- #   The list of top  5  are as follows:
- #  [['model_520' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
- # ['model_535' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
- # ['model_858' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
- # ['model_873' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
- # ['model_530' 'c_12' 'c_4' 'c_8' 'm_1' '0.9809' '0.062172648']]
+    ''' mnist random search '''
+    #   The list of top  5  are as follows:
+    #  [['model_520' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
+    # ['model_535' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
+    # ['model_858' 'c_1' 'c_8' 'c_12' 'c_9' '0.9813' '0.060944453']
+    # ['model_873' 'c_10' 'c_7' 'c_1' 'c_6' '0.9813' '0.057998743']
+    # ['model_530' 'c_12' 'c_4' 'c_8' 'm_1' '0.9809' '0.062172648']]
 
-''' cifar-10 random search'''
-# The list of top  5  are as follows:
-#   [['model_774' 'c_11' 'c_12' 'm_3' 'c_12' '0.8018' '0.6082780576']
-#  ['model_444' 'c_9' 'm_2' 'c_12' 'c_8' '0.7997' '0.6209799933']
-#  ['model_927' 'c_2' 'm_3' 'c_11' 'c_12' '0.7931' '0.6634568202']
-#  ['model_650' 'c_12' 'm_3' 'c_11' 'c_10' '0.7916' '0.63901881']
-#  ['model_1806' 'c_11' 'm_1' 'c_9' 'c_3' '0.7908' '0.6514748561']]
+    ''' cifar-10 random search'''
+    # The list of top  5  are as follows:
+    #   [['model_774' 'c_11' 'c_12' 'm_3' 'c_12' '0.8018' '0.6082780576']
+    #  ['model_444' 'c_9' 'm_2' 'c_12' 'c_8' '0.7997' '0.6209799933']
+    #  ['model_927' 'c_2' 'm_3' 'c_11' 'c_12' '0.7931' '0.6634568202']
+    #  ['model_650' 'c_12' 'm_3' 'c_11' 'c_10' '0.7916' '0.63901881']
+    #  ['model_1806' 'c_11' 'm_1' 'c_9' 'c_3' '0.7908' '0.6514748561']]
 
 
     '''
@@ -354,17 +405,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# MNIST
-#1
-#2
-#3
-#4
-
-#CIFAR-10 avg accuracy
-#1  0.7242
-#2  0.7230
-#3  0.7225
-#4  0.7235
-#5  0.7246

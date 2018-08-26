@@ -5,8 +5,10 @@ LOSS_COL_INDEX = -1
 ACCURACY_COL_INDEX = -2
 
 def get_bad_topology(data,threshold,factor):
+    ############################################################################
+    # FUNCTION DESCRIPTION: get bad topology in list according to thresold and criteria
+    ############################################################################
     list_data = []
-    
     for index in range(len(data)):
         if factor == "accuracy":
             if float(data[index][ACCURACY_COL_INDEX]) < threshold:
@@ -26,6 +28,7 @@ def main():
 
     OUTPUT_FILE = "bad_model.csv"
 
+    ### Set threshold and criteria ####
     accuracy_threshold = 0.7
     bad_model = get_bad_topology(data,accuracy_threshold,"accuracy")
     # loss_threshold = 1.0

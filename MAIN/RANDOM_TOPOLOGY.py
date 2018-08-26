@@ -58,12 +58,18 @@ KEY_THIRD_LAYER = '3rd Layer'
 KEY_FORTH_LAYER = '4th Layer'
 
 def have_duplicate(dict_model,temp_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     for key,value in dict_model.items():
         if temp_list == value:
             return True
     return False
 
 def count_non_duplicate(dict_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_list = []
     for key,value in dict_model.items():
         temp_value = ''.join(value)
@@ -71,6 +77,9 @@ def count_non_duplicate(dict_model):
     return len(set(temp_list))
 
 def fix_topology(dict_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     list_of_dict = []
     for key,value in dict_model.items():
         temp_dict = {}
@@ -103,6 +112,9 @@ def fix_topology(dict_model):
     return list_of_dict
 
 def add_layer(number_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     num_model = 0
     dict_model = {}
 
@@ -133,6 +145,9 @@ def add_layer(number_model):
     return dict_model
 
 def implement_topology(number_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     dict_model = add_layer(number_model)
     num_non_dup = count_non_duplicate(dict_model)
     list_of_dict = fix_topology(dict_model)
@@ -140,11 +155,17 @@ def implement_topology(number_model):
 
 # TO ADD: LAST COLUMN OF FILE, use this function
 def fn_to_add_column(file_name, content, column_name):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     csv_input = pd.read_csv(file_name)
     csv_input[column_name] =  content
     csv_input.to_csv(file_name, index= False)
 
 def convert_dict_to_list(dict_data):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     list_of_model = []
     for indi_list in dict_data:
         temp_list = [indi_list[KEY_MODEL],indi_list[KEY_FIRST_LAYER], indi_list[KEY_SECOND_LAYER],
@@ -153,6 +174,9 @@ def convert_dict_to_list(dict_data):
     return list_of_model
 
 def fix_dict(dict_data):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     final_array = []
     data  = convert_dict_to_list(dict_data)
     for array in data:
@@ -169,6 +193,9 @@ def fix_dict(dict_data):
     return final_array
 
 def get_random_topology(num_model, output_file_name):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     data_dict = implement_topology(num_model)
     data_dict = fix_dict(data_dict)
     output_file_name= save_topology_in_csv(output_file_name,data_dict)

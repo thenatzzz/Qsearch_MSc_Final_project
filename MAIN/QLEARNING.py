@@ -98,6 +98,9 @@ Q_TABLE = np.zeros(overall_space)
 # Q_TABLE = np.asarray(Q_TABLE)
 
 def get_file(dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global FILE
     global Q_TABLE_FILE
     global EPISODE_FILE
@@ -116,12 +119,18 @@ def get_file(dataset):
         EPISODE_FILE = 'episode.csv'
 
 def check_equal(some_list):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     for i in range(len(some_list)):
         if some_list[i] != some_list[0]:
             return False
     return True
 
 def match_epsilon(epsilon):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     if epsilon+1 <= NUM_MODEL_1:
         return EPSILON_DICT[NUM_LIST_1]
     elif epsilon+1 > NUM_MODEL_1 and epsilon+1 <= NUM_MODEL_1+NUM_MODEL_2:
@@ -130,6 +139,9 @@ def match_epsilon(epsilon):
         return EPSILON_DICT[NUM_LIST_3][epsilon-NUM_MODEL_1-NUM_MODEL_2]
 
 def choose_action(num_layer, epsilon):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     eps = match_epsilon(epsilon)
     if random.uniform(0,1) < eps:
         random_key, random_value = random.choice(list(enumerate(Q_TABLE[num_layer])))
@@ -143,6 +155,9 @@ def choose_action(num_layer, epsilon):
         return max_key,max_value
 
 def choose_action_exp(data,num_layer,episode,tracking_index):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     if episode < NUM_MODEL_1:
         if num_layer ==0:
             if MODE == "RANDOMIZED_update":
@@ -169,6 +184,9 @@ def choose_action_exp(data,num_layer,episode,tracking_index):
         return action,value,tracking_index
 
 def fn_format_action_array(action_array):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     new_action_array = action_array[:]
     length_action_array = len(action_array)
     if length_action_array != MAX_NUM_LAYER:
@@ -177,11 +195,17 @@ def fn_format_action_array(action_array):
     return new_action_array
 
 def fix_layer_acc_bias(max_value_next_action,num_layer,action_array_1):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     if action_array_1[num_layer] == LAYER_SOFTMAX:
         max_value_next_action *= LAYER_BIAS_ADJUSTMENT_RATE
     return max_value_next_action
 
 def update_qtable_from_mem_replay(data,num_model,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global MODE
     MODE = "RANDOMIZED_update"
     for i in range(num_model):
@@ -208,6 +232,9 @@ def update_qtable_from_mem_replay(data,num_model,dataset):
 
 
 def train_new_model(data,action_array,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     #print("______________________________________________________")
     #print("_________________ CANNOT FIND A MATCH ________________")
     #print("______________________________________________________")
@@ -222,6 +249,9 @@ def train_new_model(data,action_array,dataset):
         return train_model_mnist(action_array)
 
 def get_accuracy(data,action_array,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     new_action_array = action_array[:]
     temp_action_array =  []
     temp_action_array = fn_format_action_array(new_action_array)
@@ -237,6 +267,9 @@ def get_accuracy(data,action_array,dataset):
     return train_new_model(data,temp_action_array,dataset)
 
 def get_next_value(data,num_layer,action_array,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     '''set num_layer to next layer '''
     num_layer += 1
     if num_layer == MAX_NUM_LAYER or action_array[-1] == LAYER_SOFTMAX:
@@ -247,15 +280,24 @@ def get_next_value(data,num_layer,action_array,dataset):
         return max_value
 
 def translate_action_array(action_array):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_array = []
     for i in range(len(action_array)):
         temp_array.append(Action(action_array[i]).name)
     return temp_array
 
 def round_value(temp_q_table):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     return np.round(temp_q_table,NUM_DIGIT_ROUND)
 
 def get_best_action(table):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     dict_1 = {}
     tup_1 = ()
     for i in range(MAX_STATE):
@@ -268,6 +310,9 @@ def get_best_action(table):
     return dict_1
 
 def get_avg_accuray(table):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     dict_1 = {}
     for i in range(MAX_STATE):
         key = "Layer "+ str(i+1)
@@ -277,6 +322,9 @@ def get_avg_accuray(table):
     return dict_1
 
 def save_q_table(episode,Q_TABLE,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     if len(Q_TABLE_FILE) > 0 :
         file_name = Q_TABLE_FILE
     elif dataset == "cifar10":
@@ -286,7 +334,8 @@ def save_q_table(episode,Q_TABLE,dataset):
 
     list_of_data = Q_TABLE[:]
     episode_name = 'episode_'+ str(episode)
-    csv_columns = [[],[episode_name],['c_1','c_2','c_3','c_4','c_5','c_6','c_7','c_8','c_9','c_10','c_11','c_12','m_1','m_2','m_3','s']]
+    csv_columns = [[],[episode_name],['c_1','c_2','c_3','c_4','c_5','c_6','c_7',\
+                    'c_8','c_9','c_10','c_11','c_12','m_1','m_2','m_3','s']]
     data_list = csv_columns + list(Q_TABLE)
 
     myFile = open(file_name,'a')
@@ -295,6 +344,9 @@ def save_q_table(episode,Q_TABLE,dataset):
         writer.writerows(data_list)
 
 def update_data(data,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     tmp_data = ""
     tmp_data = get_data_from_csv(FILE)
     tmp_data = format_data_without_header(tmp_data)
@@ -302,6 +354,9 @@ def update_data(data,dataset):
     return data
 
 def save_finished_episode(episode_number,data,action_array):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_array = []
     temp_action_array = ""
     temp_action_array = fn_format_action_array(action_array)
@@ -320,6 +375,9 @@ def save_finished_episode(episode_number,data,action_array):
     save_list_csv_rowbyrow(EPISODE_FILE, temp_array,'a')
 
 def create_exp_replay_interval():
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     temp_list = []
     num_interval = MAX_EPISODE// INTERVAL
     print("num_interval: ", num_interval)
@@ -328,6 +386,9 @@ def create_exp_replay_interval():
     return temp_list
 
 def match_exp_replay_interval(episode_number,exp_replay_interval):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     for i in range(len(exp_replay_interval)):
         if episode_number == exp_replay_interval[i]:
             return True
@@ -335,10 +396,13 @@ def match_exp_replay_interval(episode_number,exp_replay_interval):
     return False
 
 def run_q_learning(data,dataset):
-
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     get_file(dataset)
     exp_replay_interval = create_exp_replay_interval()
     print(exp_replay_interval)
+    
     for episode_number in range(cont_episode,MAX_EPISODE):
         action = 0
         num_layer = 0
