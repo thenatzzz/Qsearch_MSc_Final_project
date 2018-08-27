@@ -161,10 +161,10 @@ def implement_cnn(is_verify = False):
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2)
 
 def set_up_logging():
-  tensors_to_log = {"probabilities": "softmax_tensor"}
-  logging_hook = tf.train.LoggingTensorHook(
-      tensors=tensors_to_log, every_n_iter=50)
-  return logging_hook
+    tensors_to_log = {"probabilities": "softmax_tensor"}
+    logging_hook = tf.train.LoggingTensorHook(
+                            tensors=tensors_to_log, every_n_iter=50)
+    return logging_hook
 
 def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -193,41 +193,50 @@ def make_data_global(single_model):
     return GLOBAL_DATA
 
 def reset_global_data():
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global GLOBAL_DATA
     GLOBAL_DATA = ""
 
 def train_model_mnist(single_model, is_verify = False):
-  file = MAIN_FILE
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
+    file = MAIN_FILE
 
-  global INDEX_MODEL
-  is_complete_model = check_complete_model(single_model)
+    global INDEX_MODEL
+    is_complete_model = check_complete_model(single_model)
 
-  if not is_complete_model:
-      single_model = get_latest_model_list(single_model, file)
-      model_name = single_model[0]
-      cur_model_num = get_current_model_number(model_name)
-      INDEX_MODEL = get_new_model_number(cur_model_num)
+    if not is_complete_model:
+        single_model = get_latest_model_list(single_model, file)
+        model_name = single_model[0]
+        cur_model_num = get_current_model_number(model_name)
+        INDEX_MODEL = get_new_model_number(cur_model_num)
 
-  temp_single_model = make_data_global(single_model)
+    temp_single_model = make_data_global(single_model)
 
-  mnist,train_data,train_labels,eval_data,eval_labels= load_data_mnist()
-  mnist_classifier = implement_cnn(is_verify)
-  logging_hook = set_up_logging()
-  train_the_model(mnist_classifier,train_data,train_labels,logging_hook)
-  eval_results = evaluate_model(mnist_classifier,eval_data,eval_labels)
+    mnist,train_data,train_labels,eval_data,eval_labels= load_data_mnist()
+    mnist_classifier = implement_cnn(is_verify)
+    logging_hook = set_up_logging()
+    train_the_model(mnist_classifier,train_data,train_labels,logging_hook)
+    eval_results = evaluate_model(mnist_classifier,eval_data,eval_labels)
 
-  print(eval_results)
+    print(eval_results)
 
-  if not is_verify:
-      save_trained_model_in_csv(file,temp_single_model,eval_results)
+    if not is_verify:
+        save_trained_model_in_csv(file,temp_single_model,eval_results)
 
-  print(temp_single_model)
-  reset_global_data()
-  INDEX_MODEL += 1
+    print(temp_single_model)
+    reset_global_data()
+    INDEX_MODEL += 1
 
-  return eval_results['accuracy']
+    return eval_results['accuracy']
 
 def pre_train_model_mnist(file_name,output_file_name):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global MAIN_FILE
     MAIN_FILE = output_file_name
 
