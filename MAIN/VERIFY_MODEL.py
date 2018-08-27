@@ -27,6 +27,9 @@ def get_original_format(best_model_dict):
     return tmp_list
 
 def verify_model(single_model,dataset):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     is_verify = True
 
     if isinstance(single_model,dict):
