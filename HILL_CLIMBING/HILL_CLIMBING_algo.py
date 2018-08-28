@@ -5,8 +5,8 @@ sys.path.insert(0,'/homes/nj2217/FINAL_PROJECT/MAIN')
 # sys.path.insert(0,'/d/PROJECT/FINAL_PROJECT/MAIN')
 
 from HELPER_FUNCTION import *
-# from TRAIN_MODEL_CIFAR10 import *
-# from TRAIN_MODEL_MNIST import *
+from TRAIN_MODEL_CIFAR10 import *
+from TRAIN_MODEL_MNIST import *
 
 MAX_ACTION = 16
 MAX_STATE = 4
