@@ -32,6 +32,13 @@ def check_begining_ending(single_data):
     else:
         return False
 
+def format_action_name(action):
+    action = action.replace('_','')
+    SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+    action = action.capitalize()
+    action = action.translate(SUB)
+    return action
+
 def format_one_layer(index,value_in_one_layer, layer_action):
     ############################################################################
     # FUNCTION DESCRIPTION: format each layer of qtable per episode into this
@@ -42,8 +49,9 @@ def format_one_layer(index,value_in_one_layer, layer_action):
     final_list = []
     for i in range(len(value_in_one_layer)):
         action = layer_action[i]
+        action = format_action_name(action)
         temp_list = [action,layer_num,value_in_one_layer[i] ]
-
+        # print(temp_list)
         final_list.append(temp_list)
     return final_list
 
@@ -52,6 +60,7 @@ def format_data_per_eps(single_qtable):
     # FUNCTION DESCRIPTION: main function to format Qtable for each episode
     ############################################################################
     eps_name = single_qtable[INDEX_MODEL][0]
+
     format_array = []
     for index in range(INDEX_LAYER_1, INDEX_LAYER_4+1):
         format_array += format_one_layer(index,single_qtable[index][:-1], single_qtable[INDEX_ACTION])
@@ -73,7 +82,7 @@ def add_index_col(formatted_list):
     return formatted_list
 
 def save_single_eps_in_file(file_name, single_qtable,PATH):
-    data = [["Layer_type","Layer_number","Q-value" ]] + single_qtable
+    data = [["Layer Type","Layer Number","Q-value" ]] + single_qtable
     data = np.asarray(data)
     path = PATH
     output_file = path+file_name+".csv"

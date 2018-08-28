@@ -47,13 +47,18 @@ def get_episode_number(file_path):
     episode_name = file_path[start_index:-1]
     return episode_name.strip('.csv')
 
+def fix_title_name(title_name):
+    title_name = title_name.capitalize()
+    title_name = title_name.replace('_',' ')
+    return title_name
+
 def create_heatmap(file_name,input_folder_loc, output_folder_loc):
     ############################################################################
     # FUNCTION DESCRIPTION: create single heatmap png from 1 file csv
     ############################################################################
     print("initial file_name: ",file_name)
     eps_file = pd.read_csv(file_name)
-    eps_file = eps_file.pivot("Layer_type","Layer_number","Q-value")
+    eps_file = eps_file.pivot("Layer Type","Layer Number","Q-value")
 
     cmap = sns.cm.rocket_r
     arr = eps_file.values
@@ -61,11 +66,16 @@ def create_heatmap(file_name,input_folder_loc, output_folder_loc):
     # vmin = 0   ### uncomment to set heatmap minimum value
     # vmax = 1   ### uncomment to set heatmap maximum value
     # eps_file = (eps_file - eps_file.mean())/eps_file.std()  ### uncommet to implement data normalization
-    ax = sns.heatmap(eps_file, linewidths = 1, vmin=vmin, vmax=vmax,cmap = cmap, annot=True, fmt='.4g')
+
+    # ax = sns.heatmap(eps_file, linewidths = 1, vmin=vmin, vmax=vmax,cmap = cmap, annot=True, fmt='.4g')
+    print("eps file", eps_file)
+    ax = sns.heatmap(eps_file, linewidths = 1, vmin=vmin, vmax=vmax,cmap = cmap, fmt='.4g')
+
     ax.set_yticklabels(ax.get_yticklabels(), rotation = 0, fontsize = 10)
     ax2 = ax.get_figure()
 
     title_name = get_episode_number(file_name)
+    title_name = fix_title_name(title_name)
     ax.set_title(title_name)
 
     SAVING_DIR = output_folder_loc
@@ -108,11 +118,11 @@ def main():
     remove_space_csv(input_file,output_file)
 
     data = get_data_from_csv(output_file)
-    OUTPUT_EP_FILE = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/EPISODE/"
+    OUTPUT_EP_FILE = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/EPISODE_CIFAR10/"
     format_data(data, OUTPUT_EP_FILE)
 
     HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG/"
-    HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG2/"
+    HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG_CIFAR10/"
 
     input_folder_loc = OUTPUT_EP_FILE
     output_folder_loc = HEATMAP_PNG_DIR
