@@ -43,6 +43,9 @@ GLOBAL_DATA = ""
 INDEX_MODEL = 0
 
 def make_conv2d(input_layer,layer_param):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     num_filters = layer_param[0]
     size_kernel = layer_param[1]
     num_stride = layer_param[2]
@@ -54,6 +57,9 @@ def make_conv2d(input_layer,layer_param):
             activation= tf.nn.relu)
 
 def make_pool2d(input_layer,layer_param):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     size_kernel = layer_param[0]
     num_stride = layer_param[1]
     return tf.layers.max_pooling2d(inputs= input_layer,
@@ -62,6 +68,9 @@ def make_pool2d(input_layer,layer_param):
                                     padding= "SAME")
 
 def cnn_model_fn_2(features,labels, mode):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
 
     tmp_single_model = get_topology_only(GLOBAL_DATA)
     num_layer = count_model_layer(tmp_single_model)
@@ -139,6 +148,9 @@ def cnn_model_fn_2(features,labels, mode):
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
 def check_format(single_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     is_verified = True
     if len(single_model) == 4 :
         return  is_verified, [["verified_model"]+single_model+["Unknown","Unknown"]]
@@ -146,6 +158,9 @@ def check_format(single_model):
         return not is_verified, single_model
 
 def load_data_mnist():
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     mnist = tf.contrib.learn.datasets.load_dataset("mnist")
     train_data = mnist.train.images  # Returns np.array
     train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
@@ -154,6 +169,9 @@ def load_data_mnist():
     return mnist, train_data, train_labels, eval_data, eval_labels
 
 def implement_cnn(is_verify = False):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     if not is_verify:
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2, model_dir = \
         "/vol/bitbucket/nj2217/PROJECT_1/mnist_convnet_model"+ "_"+str(INDEX_MODEL))
@@ -161,12 +179,18 @@ def implement_cnn(is_verify = False):
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2)
 
 def set_up_logging():
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     tensors_to_log = {"probabilities": "softmax_tensor"}
     logging_hook = tf.train.LoggingTensorHook(
                             tensors=tensors_to_log, every_n_iter=50)
     return logging_hook
 
 def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
                     x={"x": train_data},
                     y=train_labels,
@@ -180,14 +204,20 @@ def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
                     hooks=[logging_hook])
 
 def evaluate_model(mnist_classifier,eval_data,eval_labels):
-  eval_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={"x": eval_data},
-        y=eval_labels,
-        num_epochs=1,
-        shuffle=False)
-  return mnist_classifier.evaluate(input_fn=eval_input_fn)
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
+    eval_input_fn = tf.estimator.inputs.numpy_input_fn(
+                        x={"x": eval_data},
+                        y=eval_labels,
+                        num_epochs=1,
+                        shuffle=False)
+    return mnist_classifier.evaluate(input_fn=eval_input_fn)
 
 def make_data_global(single_model):
+    ############################################################################
+    # FUNCTION DESCRIPTION:
+    ############################################################################
     global GLOBAL_DATA
     GLOBAL_DATA = single_model
     return GLOBAL_DATA
