@@ -3,7 +3,7 @@ from TRAIN_MODEL_CIFAR10 import train_model_cifar10
 
 def format_into_normal_form(single_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: helper function to format data into correct format
     ############################################################################
     FIRST_LAYER = single_model[0]
     SECOND_LAYER = single_model[1]
@@ -16,7 +16,7 @@ def format_into_normal_form(single_model):
 
 def get_original_format(best_model_dict):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to get original format of data
     ############################################################################
     tmp_list = []
     tmp_list.append(best_model_dict['Layer 1'][0])
@@ -28,7 +28,7 @@ def get_original_format(best_model_dict):
 
 def verify_model(single_model,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION: 
+    # FUNCTION DESCRIPTION:  function to test single model
     ############################################################################
     is_verify = True
 
