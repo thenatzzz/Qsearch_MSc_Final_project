@@ -51,7 +51,7 @@ def use_best_layer(final_array,best_layer,index_hill_level):
         final_array[index][index_hill_level+1] = best_layer
     return final_array
 
-def hill_climbing(DATASET,SAVE_FILE):
+def layerwise_search(DATASET,SAVE_FILE):
     ###########################################################################
     # FUNCTION DESCRIPTION: do hill climbing algorithm to find the topology that gives
     #                       highest validation accuracy
@@ -97,7 +97,7 @@ def hill_climbing(DATASET,SAVE_FILE):
 def main():
     DATASET = 'cifar10'
     SAVE_FILE = 'hc_cifar10.csv'
-    hill_climbing(DATASET,SAVE_FILE)
+    layerwise_search(DATASET,SAVE_FILE)
 
 if __name__ == '__main__':
     main()
