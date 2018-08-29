@@ -26,7 +26,7 @@ INDEX_LAST = -1
 
 def get_data_from_csv(file_name):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: read data from csv in form of list per row in csv
     ############################################################################
     list_data = []
     with open(file_name, 'rt',encoding='utf8') as f:
@@ -58,7 +58,7 @@ def check_complete_model(single_model):
 
 def count_model_layer(model_from_csv):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: count number of layer in topology
     ############################################################################
     count = 0
     for i in range(len(model_from_csv)):
@@ -69,13 +69,13 @@ def count_model_layer(model_from_csv):
 
 def get_new_model_number(old_model_number):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get new model number
     ############################################################################
     return old_model_number+1
 
 def get_current_model_number(latest_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get latest model number
     ############################################################################
     cur_model_num = latest_model.strip('model_')
     return int(cur_model_num)
