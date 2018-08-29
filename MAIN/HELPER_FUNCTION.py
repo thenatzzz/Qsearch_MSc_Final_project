@@ -117,7 +117,7 @@ def save_list_csv_rowbyrow(file_name,data_list,saving_mode = 'w'):
 
 def save_topology_in_csv(file_name, data_list):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: save model topology in csv with header
     ############################################################################
     list_of_data = data_list[:]
     csv_columns = [MODEL_TAG_HEADER]
@@ -129,7 +129,7 @@ def save_topology_in_csv(file_name, data_list):
 
 def save_trained_model_in_csv(file_name,single_model,eval_results):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: save trained model in csv in complete form
     ############################################################################
     csv_columns = MODEL_TAG_HEADER
     list_of_dict = []
