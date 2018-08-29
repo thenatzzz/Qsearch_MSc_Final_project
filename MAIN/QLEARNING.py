@@ -11,22 +11,30 @@ import os
 import time
 from enum import Enum
 
+''' Specify dataset to use '''
 DATASET = ""
 
+''' Specify file name: main file, q_table file and episode file '''
 FILE = ""
 Q_TABLE_FILE= ""
 EPISODE_FILE = ""
 
+''' Experience Replay update mode: 1 update Q-table after the agent finishes training new model.'''
+UPDATE_AFTER_FIND_NEW_MODEL = False
+NUM_MODEL_AFTER_FIND_NEW_MODEL = 5
 MODE = "RANDOMIZED_update"
 # MODE = "SEQUENTIAL_update"
 
-UPDATE_FROM_MEM_REPLAY = True
-#UPDATE_FROM_MEM_REPLAY = False
+''' Experience Replay update mode: 2 update Q-table in periodic manner (intervals)'''
+UPDATE_FROM_MEM_REPLAY_PERIODIC = True
+NUM_MODEL_PERIODIC = 50
+INTERVAL = 100
 
-
+''' Layer bias adjustment for Softmax Layer '''
 LAYER_BIAS_ADJUSTMENT_RATE = 0.2
 
 cont_episode = 0
+
 MAX_ACTION = 16
 MAX_STATE = 4
 MAX_NUM_LAYER = 4
@@ -37,7 +45,7 @@ INDEX_MODEL = 0
 LAYER_SOFTMAX = 's'
 
 NUM_DIGIT_ROUND = 6
-NUM_MODEL_FROM_EXPERIENCE_REPLAY = 50
+
 
 class Action(Enum):
     c_1 = 0
@@ -91,15 +99,13 @@ EPSILON_DICT[NUM_LIST_1] = EPSILON_LIST_1
 EPSILON_DICT[NUM_LIST_2] = EPSILON_LIST_2
 EPSILON_DICT[NUM_LIST_3] = EPSILON_LIST_3
 
-INTERVAL = 100
 
 overall_space = (MAX_STATE, MAX_ACTION)
 Q_TABLE = np.zeros(overall_space)
-# Q_TABLE = np.asarray(Q_TABLE)
 
 def get_file(dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get csv file according to specified dataset
     ############################################################################
     global FILE
     global Q_TABLE_FILE
@@ -120,7 +126,7 @@ def get_file(dataset):
 
 def check_equal(some_list):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: check if the element is same or not
     ############################################################################
     for i in range(len(some_list)):
         if some_list[i] != some_list[0]:
@@ -129,7 +135,7 @@ def check_equal(some_list):
 
 def match_epsilon(epsilon):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to match epsilon to specified episode
     ############################################################################
     if epsilon+1 <= NUM_MODEL_1:
         return EPSILON_DICT[NUM_LIST_1]
@@ -140,7 +146,8 @@ def match_epsilon(epsilon):
 
 def choose_action(num_layer, epsilon):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to choose action with epsilon greedy strategy
+    #                       or random strategy
     ############################################################################
     eps = match_epsilon(epsilon)
     if random.uniform(0,1) < eps:
@@ -156,7 +163,8 @@ def choose_action(num_layer, epsilon):
 
 def choose_action_exp(data,num_layer,episode,tracking_index):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to choose action from models sampled from
+    #                       experience replay to update Q-table
     ############################################################################
     if episode < NUM_MODEL_1:
         if num_layer ==0:
@@ -185,7 +193,7 @@ def choose_action_exp(data,num_layer,episode,tracking_index):
 
 def fn_format_action_array(action_array):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to format/ complete topology array
     ############################################################################
     new_action_array = action_array[:]
     length_action_array = len(action_array)
@@ -196,7 +204,8 @@ def fn_format_action_array(action_array):
 
 def fix_layer_acc_bias(max_value_next_action,num_layer,action_array_1):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to fix layer bias (as softmax layer tends
+    #                       to habe high value than others)
     ############################################################################
     if action_array_1[num_layer] == LAYER_SOFTMAX:
         max_value_next_action *= LAYER_BIAS_ADJUSTMENT_RATE
@@ -204,7 +213,8 @@ def fix_layer_acc_bias(max_value_next_action,num_layer,action_array_1):
 
 def update_qtable_from_mem_replay(data,num_model,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to update Q-table by sampling models from
+    #                       experience replay
     ############################################################################
     global MODE
     MODE = "RANDOMIZED_update"
@@ -216,12 +226,11 @@ def update_qtable_from_mem_replay(data,num_model,dataset):
         action = 0
         num_layer = 0
         alpha = ALPHA_LIST[i]
-        # print(i)
+
         while Action(action).name != LAYER_SOFTMAX and num_layer < MAX_NUM_LAYER:
             action,value_action, index = choose_action_exp(data,num_layer,i,index)
             action_array.append(action)
             action_array_1 = translate_action_array(action_array)
-            # print("action_array_1: ",action_array_1)
             max_value_next_action = get_next_value(data,num_layer, action_array_1,dataset)
             max_value_next_action = fix_layer_acc_bias(max_value_next_action,num_layer,action_array_1)
 
@@ -233,15 +242,12 @@ def update_qtable_from_mem_replay(data,num_model,dataset):
 
 def train_new_model(data,action_array,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to train new model if Q agent unable to find
+    #                       from the experience replay.
     ############################################################################
-    #print("______________________________________________________")
-    #print("_________________ CANNOT FIND A MATCH ________________")
-    #print("______________________________________________________")
-    # num_model = NUM_MODEL_FROM_EXPERIENCE_REPLAY
-    # if UPDATE_FROM_MEM_REPLAY:
-    #     update_qtable_from_mem_replay(data,num_model,dataset)
-    # return 1
+
+    if UPDATE_AFTER_FIND_NEW_MODEL:
+        update_qtable_from_mem_replay(data,NUM_MODEL_AFTER_FIND_NEW_MODEL,dataset)
 
     if dataset == "cifar10":
         return train_model_cifar10(action_array)
@@ -250,7 +256,9 @@ def train_new_model(data,action_array,dataset):
 
 def get_accuracy(data,action_array,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to get accuracy if there are already trained model
+    #                       in experience replay else need to train new model
+    #                       and get new accuracy
     ############################################################################
     new_action_array = action_array[:]
     temp_action_array =  []
@@ -258,17 +266,14 @@ def get_accuracy(data,action_array,dataset):
     for index in range(len(data)):
 
         if np.array_equal(temp_action_array, data[index][1:INDEX_ACCURACY]):
-        #    print('+++++++++++++++++++++++++++++++++++++++++++++++')
-        #    print("+++++++++ THERE IS A MATCH !! +++++++++++++++++")
-        #    print("at model number: ", data[index][0])
-        #    print('+++++++++++++++++++++++++++++++++++++++++++++++')
-        #    print("Accuray of model: ",data[index][INDEX_ACCURACY])
             return float(data[index][INDEX_ACCURACY])
+
     return train_new_model(data,temp_action_array,dataset)
 
 def get_next_value(data,num_layer,action_array,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to get new action value according to Bellman
+    #                       update equation
     ############################################################################
     '''set num_layer to next layer '''
     num_layer += 1
@@ -281,7 +286,7 @@ def get_next_value(data,num_layer,action_array,dataset):
 
 def translate_action_array(action_array):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to format action array
     ############################################################################
     temp_array = []
     for i in range(len(action_array)):
@@ -290,13 +295,13 @@ def translate_action_array(action_array):
 
 def round_value(temp_q_table):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to round value according to specified digit
     ############################################################################
     return np.round(temp_q_table,NUM_DIGIT_ROUND)
 
 def get_best_action(table):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to choose the function with highest value
     ############################################################################
     dict_1 = {}
     tup_1 = ()
@@ -311,7 +316,7 @@ def get_best_action(table):
 
 def get_avg_accuray(table):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to get average accuracy
     ############################################################################
     dict_1 = {}
     for i in range(MAX_STATE):
@@ -323,7 +328,7 @@ def get_avg_accuray(table):
 
 def save_q_table(episode,Q_TABLE,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to save Q-table in csv file
     ############################################################################
     if len(Q_TABLE_FILE) > 0 :
         file_name = Q_TABLE_FILE
@@ -345,7 +350,8 @@ def save_q_table(episode,Q_TABLE,dataset):
 
 def update_data(data,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to update experience replay into on-going processing
+    #                       data after the agent puts new model into experience replay
     ############################################################################
     tmp_data = ""
     tmp_data = get_data_from_csv(FILE)
@@ -355,12 +361,11 @@ def update_data(data,dataset):
 
 def save_finished_episode(episode_number,data,action_array):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to save finished episode into csv file
     ############################################################################
     temp_array = []
     temp_action_array = ""
     temp_action_array = fn_format_action_array(action_array)
-    # print("inside save_fin: ",episode_number, " : ",temp_action_array)
 
     if episode_number == 0:
         temp_array.append(['EPISODE_NUMBER','LAYER_1','LAYER_2','LAYER_3','LAYER_4','ACCURACY','LOSS','MODEL_MATCHED'])
@@ -376,7 +381,7 @@ def save_finished_episode(episode_number,data,action_array):
 
 def create_exp_replay_interval():
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to create interval for experience replay
     ############################################################################
     temp_list = []
     num_interval = MAX_EPISODE// INTERVAL
@@ -387,22 +392,20 @@ def create_exp_replay_interval():
 
 def match_exp_replay_interval(episode_number,exp_replay_interval):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to match experience replay to specified interval
     ############################################################################
     for i in range(len(exp_replay_interval)):
         if episode_number == exp_replay_interval[i]:
             return True
-
     return False
 
 def run_q_learning(data,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: main function to run Q-Search
     ############################################################################
     get_file(dataset)
     exp_replay_interval = create_exp_replay_interval()
-    print(exp_replay_interval)
-    
+
     for episode_number in range(cont_episode,MAX_EPISODE):
         action = 0
         num_layer = 0
@@ -410,14 +413,11 @@ def run_q_learning(data,dataset):
         action_array = []
         action_array_1 = []
         index = 0
-        # print('alpha: ',alpha)
+
         while Action(action).name != LAYER_SOFTMAX and num_layer < MAX_NUM_LAYER:
-            # action,value_action = choose_action(num_layer, i)
             action,value_action, index = choose_action_exp(data,num_layer,episode_number,index)
             action_array.append(action)
             action_array_1 = translate_action_array(action_array)
-        #    print("action_array_1: ",action_array_1)
-            # print(i)
             max_value_next_action = get_next_value(data,num_layer, action_array_1,dataset)
             max_value_next_action = fix_layer_acc_bias(max_value_next_action,num_layer,action_array_1)
 
@@ -425,21 +425,17 @@ def run_q_learning(data,dataset):
                         alpha*(GAMMA*max_value_next_action-Q_TABLE[num_layer][action])
             Q_TABLE[num_layer] = round_value(Q_TABLE[num_layer])
             num_layer += 1
-        # print("ZZZZZZZ index ZZZZZZZZZZZZZ: ", index)
-        print(action_array_1)
 
-        if UPDATE_FROM_MEM_REPLAY and match_exp_replay_interval(episode_number,exp_replay_interval):
-            num_model = NUM_MODEL_FROM_EXPERIENCE_REPLAY
-            # print("UPDATEEEEEEEEEEEEEEEEEEEEEE at episode number:", episode_number )
-            update_qtable_from_mem_replay(data,num_model,dataset)
+        if UPDATE_FROM_MEM_REPLAY_PERIODIC and match_exp_replay_interval(episode_number,exp_replay_interval):
+
+            update_qtable_from_mem_replay(data,NUM_MODEL_PERIODIC,dataset)
 
         print("$$$$$$$$$$$$$$ EPISODE: ", episode_number, " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         save_q_table(episode_number,Q_TABLE,dataset)
         data = update_data(data,dataset)
         save_finished_episode(episode_number,data,action_array_1)
-        # print(Q_TABLE)
         print('\n')
-        # time.sleep(1)
+
     print("Best accuracy: ",get_best_action(Q_TABLE))
     print("Avg accuracy: ",get_avg_accuray(Q_TABLE))
     return get_best_action(Q_TABLE)

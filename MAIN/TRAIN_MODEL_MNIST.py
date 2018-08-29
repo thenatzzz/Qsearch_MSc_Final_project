@@ -151,7 +151,7 @@ def cnn_model_fn_2(features,labels, mode):
 
 def check_format(single_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to check model format
     ############################################################################
     is_verified = True
     if len(single_model) == 4 :
@@ -172,7 +172,7 @@ def load_data_mnist():
 
 def implement_cnn(is_verify = False):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to set up Estimator and directory to save model
     ############################################################################
     if not is_verify:
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2, model_dir = \
@@ -191,7 +191,7 @@ def set_up_logging():
 
 def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
     ############################################################################
-    # FUNCTION DESCRIPTION: function to setup estimator and to train
+    # FUNCTION DESCRIPTION: function to setup main input and hyperparameters and to train
     ############################################################################
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
                     x={"x": train_data},
