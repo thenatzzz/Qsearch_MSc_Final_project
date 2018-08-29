@@ -44,7 +44,8 @@ INDEX_MODEL = 0
 
 def make_conv2d(input_layer,layer_param):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to add Convolutional layer with specified
+    #                       hyperparameters.
     ############################################################################
     num_filters = layer_param[0]
     size_kernel = layer_param[1]
@@ -58,7 +59,8 @@ def make_conv2d(input_layer,layer_param):
 
 def make_pool2d(input_layer,layer_param):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to add Max Pooling layer with specifed
+    #                       hyperparameters.
     ############################################################################
     size_kernel = layer_param[0]
     num_stride = layer_param[1]
@@ -69,7 +71,7 @@ def make_pool2d(input_layer,layer_param):
 
 def cnn_model_fn_2(features,labels, mode):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: main function to attach all topologies together into a model.
     ############################################################################
 
     tmp_single_model = get_topology_only(GLOBAL_DATA)
@@ -159,7 +161,7 @@ def check_format(single_model):
 
 def load_data_mnist():
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to load MNIST dataset.
     ############################################################################
     mnist = tf.contrib.learn.datasets.load_dataset("mnist")
     train_data = mnist.train.images  # Returns np.array
@@ -180,7 +182,7 @@ def implement_cnn(is_verify = False):
 
 def set_up_logging():
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to set up logging hook
     ############################################################################
     tensors_to_log = {"probabilities": "softmax_tensor"}
     logging_hook = tf.train.LoggingTensorHook(
@@ -189,7 +191,7 @@ def set_up_logging():
 
 def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to setup estimator and to train
     ############################################################################
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
                     x={"x": train_data},
@@ -205,7 +207,7 @@ def train_the_model(mnist_classifier,train_data,train_labels,logging_hook):
 
 def evaluate_model(mnist_classifier,eval_data,eval_labels):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to evaluate the model
     ############################################################################
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
                         x={"x": eval_data},
@@ -216,7 +218,7 @@ def evaluate_model(mnist_classifier,eval_data,eval_labels):
 
 def make_data_global(single_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to make data global
     ############################################################################
     global GLOBAL_DATA
     GLOBAL_DATA = single_model
@@ -224,14 +226,14 @@ def make_data_global(single_model):
 
 def reset_global_data():
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to reset global data
     ############################################################################
     global GLOBAL_DATA
     GLOBAL_DATA = ""
 
 def train_model_mnist(single_model, is_verify = False):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: main function to train MNIST dataset
     ############################################################################
     file = MAIN_FILE
 
@@ -265,7 +267,7 @@ def train_model_mnist(single_model, is_verify = False):
 
 def pre_train_model_mnist(file_name,output_file_name):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: function to train several models from csv file
     ############################################################################
     global MAIN_FILE
     MAIN_FILE = output_file_name
