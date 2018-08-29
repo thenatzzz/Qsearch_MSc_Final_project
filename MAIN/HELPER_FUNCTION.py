@@ -37,19 +37,19 @@ def get_data_from_csv(file_name):
 
 def format_data_without_header(data):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get rid of layer header
     ############################################################################
     return data[INDEX_FIRST_LAYER:]
 
 def get_topology_only(single_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get only topology with accuracy and loss
     ############################################################################
     return single_model[INDEX_FIRST_LAYER:INDEX_ACCURACY]
 
 def check_complete_model(single_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: check whether the model is in complete format or not
     ############################################################################
     if len(single_model) == MAX_LENGTH_HEADER:
         return True
@@ -82,7 +82,7 @@ def get_current_model_number(latest_model):
 
 def get_new_model(lastest_model):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get new model name and number
     ############################################################################
     temp_new_model = get_current_model_number(lastest_model)
     new_number = get_new_model_number(temp_new_model)
@@ -92,7 +92,8 @@ def get_new_model(lastest_model):
 
 def get_latest_model_list(single_model,file):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: get new model in list with name and topology without \
+    #                        accuracy and loss
     ############################################################################
     file_name = file
     data = get_data_from_csv(file_name)
