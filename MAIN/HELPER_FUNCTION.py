@@ -105,7 +105,7 @@ def get_latest_model_list(single_model,file):
 
 def save_list_csv_rowbyrow(file_name,data_list,saving_mode = 'w'):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: save list in csv row by row
     ############################################################################
     mode = saving_mode
     my_file = open(file_name,mode)

@@ -121,7 +121,6 @@ def main():
     OUTPUT_EP_FILE = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/EPISODE_CIFAR10/"
     format_data(data, OUTPUT_EP_FILE)
 
-    HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG/"
     HEATMAP_PNG_DIR = "/vol/bitbucket/nj2217/FINAL_PROJECT/HEATMAP/PNG_CIFAR10/"
 
     input_folder_loc = OUTPUT_EP_FILE

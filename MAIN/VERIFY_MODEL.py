@@ -28,7 +28,7 @@ def get_original_format(best_model_dict):
 
 def verify_model(single_model,dataset):
     ############################################################################
-    # FUNCTION DESCRIPTION:
+    # FUNCTION DESCRIPTION: 
     ############################################################################
     is_verify = True
 
