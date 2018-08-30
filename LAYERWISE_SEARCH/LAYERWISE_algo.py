@@ -53,7 +53,7 @@ def use_best_layer(final_array,best_layer,index_hill_level):
 
 def layerwise_search(DATASET,SAVE_FILE):
     ###########################################################################
-    # FUNCTION DESCRIPTION: do hill climbing algorithm to find the topology that gives
+    # FUNCTION DESCRIPTION: do layerwise search algorithm to find the topology that gives
     #                       highest validation accuracy
     ###########################################################################
 
