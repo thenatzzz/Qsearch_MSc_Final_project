@@ -37,4 +37,5 @@ Experiments:
    3.1 MNIST
    3.2 CIFAR-10
 
-PS. the parameters for CNN can be adjusted in TRAIN_MODEL_MNIST/CIFAR10.py  
+PS. the parameters for CNN can be adjusted in TRAIN_MODEL_MNIST/CIFAR10.py such as
+    training steps, batch size, data augmentation
