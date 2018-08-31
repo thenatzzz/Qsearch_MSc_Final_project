@@ -19,6 +19,8 @@ BATCH_SIZE = 100
 TRAINING_STEPS = 10000
 
 
+SAVED_MODEL_PATH ="/vol/bitbucket/nj2217/PROJECT_1/"
+
 #PREDEFINED LAYER
 # 1. Convolutional Layer [number of output filter, kernel size, stride]
 c_1 = [32,3,1]
@@ -177,7 +179,7 @@ def implement_cnn(is_verify = False):
     ############################################################################
     if not is_verify:
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2, model_dir = \
-        "/vol/bitbucket/nj2217/PROJECT_1/mnist_convnet_model"+ "_"+str(INDEX_MODEL))
+        SAVED_MODEL_PATH+"mnist_convnet_model_"+str(INDEX_MODEL))
     else:
         return tf.estimator.Estimator(model_fn = cnn_model_fn_2)
 

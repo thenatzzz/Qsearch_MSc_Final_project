@@ -6,11 +6,11 @@ from TRAIN_MODEL_MNIST import pre_train_model_mnist
 from VERIFY_MODEL import verify_model, get_original_format
 
 if __name__ == "__main__":
-    '''
-    NOTE: there are two different TRAIN file for different dataset because
+
+    '''NOTE: there are two different TRAIN file for different dataset because
           MNIST is implemented in pure Tensorflow and CIFAR-10 is implemented in Keras
-          which uses Tensorflow as backend.
-    '''
+          which uses Tensorflow as backend. '''
+
 
     '''
     ############################################################################
