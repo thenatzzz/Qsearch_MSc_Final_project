@@ -21,4 +21,18 @@ Dataset:
 2. CIFAR-10
 
 Experiments:
-1.
+1. Random Search: in MAIN folder by using RANDOM_TOPOLOGY.py then train according
+   to specified datasets
+   1.1 MNIST
+   1.2 CIFAR-10
+2. Layerwise Search: in LAYERWISE_SEARCH folder by usng MAIN.py then train according
+   to specified datasets
+   2.1 MNIST
+   2.2 CIFAR-10
+3. Q-Search: in MAIN folder, to run using MAIN.py
+           : the parametes of Q-Learning can be adjusted in QLEARNING.py
+             such as number of episodes, updating techm
+   3.1 MNIST
+   3.2 CIFAR-10
+
+PS. the parameters for CNN can be adjusted in TRAIN_MODEL_MNIST/CIFAR10.py  
