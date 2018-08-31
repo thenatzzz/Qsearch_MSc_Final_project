@@ -39,3 +39,9 @@ Experiments:
 
 PS. the parameters for CNN can be adjusted in TRAIN_MODEL_MNIST/CIFAR10.py such as
     training steps, batch size, data augmentation
+
+To Visualize the Results:
+1. VISUALIZE_HEATMAP: to see how Q-table changes overtime
+2. VISUALIZE_MODEL_CHART: to see how topologies the agent has successfully found overtime
+                          going in what direction.
+3. VISUALIZE_DIST: to see how distribution of model: mean, median, mode, max
