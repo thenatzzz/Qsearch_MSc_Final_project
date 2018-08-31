@@ -7,7 +7,7 @@ from VERIFY_MODEL import verify_model, get_original_format
 
 if __name__ == "__main__":
 
-    '''
+    
     #Get random topologies then save to csv file
     INPUT_FILE_NAME_RANDOM_TOPO  = 'test_random_topology.csv'
     NUM_MODEL = 1500
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     INPUT_FILE_NAME = get_random_topology(NUM_MODEL, INPUT_FILE_NAME_RANDOM_TOPO)
     print(INPUT_FILE_NAME)
     pre_train_model_mnist(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
-    '''
+
 
     #
     # #Run Q-learning to find best topology
@@ -54,6 +54,8 @@ if __name__ == "__main__":
     verify_model(model, DATASET)
     '''
 
+    '''
     INPUT_FILE_NAME = 'test_random_topology_cifar10.csv'
     OUTPUT_FILE_NAME = "new_trained_cifar10_4.csv"
     pre_train_model_cifar10(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
+    '''
