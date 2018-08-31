@@ -31,7 +31,9 @@ Experiments:
    2.2 CIFAR-10
 3. Q-Search: in MAIN folder, to run using MAIN.py
            : the parametes of Q-Learning can be adjusted in QLEARNING.py
-             such as number of episodes, updating techm
+             such as number of episodes, experience replay updating techniques,
+             number of model to be sampled from, Q-Discount rate, Q-Learning rate,
+             epsilon schedule
    3.1 MNIST
    3.2 CIFAR-10
 
