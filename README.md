@@ -53,8 +53,19 @@ REQUIREMENTS:
 4. (Optional) ffmpeg for visualizing heatmap png files
 5. (Optional) using GPU setup to speed up training
 
+HOW TO USE:
+1. RANDOMLY generate topology for epsilon = 1 (using RANDOM_TOPOLOGY.py)
+2. train file from 1. with pre_train_model_mnist/cifar10 in TRAIN_MODEL_MNIST/CIFAR-10.py
+3. using file from 1. as experience replay
+4. start Q-learning
+
 Debugging:
 1. If training MNIST dataset, get this error message:
     "NotFoundError (see above for traceback): Key conv2d_2/bias not found in checkpoint"
     Solution: check whether there is finished model located in saved folder,
               If there is, please move old finished model to different folder.
+2. careful in using file_name
+
+NOTE: there are two different TRAIN file for different dataset because
+      MNIST is implemented in pure Tensorflow and CIFAR-10 is implemented in Keras
+      which uses Tensorflow as backend.

@@ -17,10 +17,12 @@ import csv
 import os
 import pandas as pd
 
-MAIN_FILE = "COMPLETE_CIFAR10.csv"
+MAIN_FILE = "cifar10_model.csv"
 BATCH_SIZE = 32
 NUM_CLASSES = 10
 EPOCHS = 100
+EPOCHS = 1
+
 DATA_AUGMENTATION = True
 
 NUM_PREDICTIONS = 20

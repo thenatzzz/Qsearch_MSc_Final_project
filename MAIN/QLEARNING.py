@@ -21,12 +21,14 @@ EPISODE_FILE = ""
 
 ''' Experience Replay update mode: 1 update Q-table after the agent finishes training new model.'''
 UPDATE_AFTER_FIND_NEW_MODEL = False
+
 NUM_MODEL_AFTER_FIND_NEW_MODEL = 5
 MODE = "RANDOMIZED_update"
 # MODE = "SEQUENTIAL_update"
 
 ''' Experience Replay update mode: 2 update Q-table in periodic manner (intervals)'''
 UPDATE_FROM_MEM_REPLAY_PERIODIC = True
+
 NUM_MODEL_PERIODIC = 50
 INTERVAL = 100
 
@@ -46,7 +48,8 @@ LAYER_SOFTMAX = 's'
 
 NUM_DIGIT_ROUND = 6
 
-
+POSSIBLE_ACTIONS = ['c_1','c_2','c_3','c_4','c_5','c_6','c_7',\
+                'c_8','c_9','c_10','c_11','c_12','m_1','m_2','m_3','s']
 class Action(Enum):
     c_1 = 0
     c_2 = 1
@@ -81,6 +84,7 @@ NUM_MODEL_1 = 2000
 NUM_MODEL_2 = 1000
 NUM_MODEL_3 = 800
 
+
 MAX_EPISODE = NUM_MODEL_1 + NUM_MODEL_2 + NUM_MODEL_3
 
 ''' Discount Rate is set to 1.0 as to NOT prioritize any specific layer'''
@@ -112,11 +116,11 @@ def get_file(dataset):
     global EPISODE_FILE
 
     if dataset == 'cifar10':
-        FILE = "COMPLETE_CIFAR10.csv"
+        FILE = "cifar10_model.csv"
         Q_TABLE_FILE= "q_table_cifar10.csv"
         EPISODE_FILE = 'episode_cifar10.csv'
     elif dataset == 'mnist':
-        FILE = "fixed_model_dict.csv"
+        FILE = "mnist_model.csv"
         Q_TABLE_FILE= "q_table_mnist.csv"
         EPISODE_FILE = 'episode_mnist.csv'
     else:
@@ -339,8 +343,7 @@ def save_q_table(episode,Q_TABLE,dataset):
 
     list_of_data = Q_TABLE[:]
     episode_name = 'episode_'+ str(episode)
-    csv_columns = [[],[episode_name],['c_1','c_2','c_3','c_4','c_5','c_6','c_7',\
-                    'c_8','c_9','c_10','c_11','c_12','m_1','m_2','m_3','s']]
+    csv_columns = [[],[episode_name],POSSIBLE_ACTIONS]
     data_list = csv_columns + list(Q_TABLE)
 
     myFile = open(file_name,'a')
@@ -429,7 +432,7 @@ def run_q_learning(data,dataset):
         if UPDATE_FROM_MEM_REPLAY_PERIODIC and match_exp_replay_interval(episode_number,exp_replay_interval):
 
             update_qtable_from_mem_replay(data,NUM_MODEL_PERIODIC,dataset)
-
+        print(Q_TABLE)
         print("$$$$$$$$$$$$$$ EPISODE: ", episode_number, " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         save_q_table(episode_number,Q_TABLE,dataset)
         data = update_data(data,dataset)

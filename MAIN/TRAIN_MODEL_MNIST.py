@@ -14,10 +14,9 @@ import os
 import pandas as pd
 tf.logging.set_verbosity(tf.logging.INFO)
 
-MAIN_FILE = "fixed_model_dict.csv"
+MAIN_FILE = "mnist_model.csv"
 BATCH_SIZE = 100
 TRAINING_STEPS = 10000
-TRAINING_STEPS = 100
 
 
 #PREDEFINED LAYER
@@ -124,7 +123,7 @@ def cnn_model_fn_2(features,labels, mode):
     dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)
 
     dropout = tf.layers.dropout(
-        inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
+        inputs=dense, rate=0.5, training=mode == tf.estimator.ModeKeys.TRAIN)
 
     logits = tf.layers.dense(inputs=dropout, units=10)
 
