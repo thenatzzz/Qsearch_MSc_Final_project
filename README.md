@@ -45,3 +45,10 @@ To Visualize the Results:
 2. VISUALIZE_MODEL_CHART: to see how topologies the agent has successfully found overtime
                           going in what direction.
 3. VISUALIZE_DIST: to see how distribution of model: mean, median, mode, max
+
+REQUIREMENTS:
+1. tensorflow for MNIST, CIFAR-10
+2. keras for CIFAR-10
+3. seaborn for visualization
+4. (Optional) ffmpeg for visualizing heatmap png files
+5. (Optional) using GPU setup to speed up training
