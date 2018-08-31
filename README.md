@@ -52,3 +52,9 @@ REQUIREMENTS:
 3. seaborn for visualization
 4. (Optional) ffmpeg for visualizing heatmap png files
 5. (Optional) using GPU setup to speed up training
+
+Debugging:
+1. If training MNIST dataset, get this error message:
+    "NotFoundError (see above for traceback): Key conv2d_2/bias not found in checkpoint"
+    Solution: check whether there is finished model located in saved folder,
+              If there is, please move old finished model to different folder.

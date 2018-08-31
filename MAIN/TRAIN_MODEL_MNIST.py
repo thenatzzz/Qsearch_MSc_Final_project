@@ -17,6 +17,8 @@ tf.logging.set_verbosity(tf.logging.INFO)
 MAIN_FILE = "fixed_model_dict.csv"
 BATCH_SIZE = 100
 TRAINING_STEPS = 10000
+TRAINING_STEPS = 100
+
 
 #PREDEFINED LAYER
 # 1. Convolutional Layer [number of output filter, kernel size, stride]

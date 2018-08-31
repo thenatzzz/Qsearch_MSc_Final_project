@@ -7,15 +7,23 @@ from VERIFY_MODEL import verify_model, get_original_format
 
 if __name__ == "__main__":
 
-    
-    #Get random topologies then save to csv file
+    '''
+    ############################################################################
+    ######## Get random topologies then save to csv file #######################
+    ######## Random Search                               #######################
+    ############################################################################
     INPUT_FILE_NAME_RANDOM_TOPO  = 'test_random_topology.csv'
     NUM_MODEL = 1500
     OUTPUT_FILE_NAME = "new_trained_mnist.csv"
     INPUT_FILE_NAME = get_random_topology(NUM_MODEL, INPUT_FILE_NAME_RANDOM_TOPO)
     print(INPUT_FILE_NAME)
+    ############################################################################
+    ########### Train model in the csv file ####################################
+    ############################################################################
     pre_train_model_mnist(INPUT_FILE_NAME,OUTPUT_FILE_NAME)
+    '''
 
+    
 
     #
     # #Run Q-learning to find best topology
