@@ -66,6 +66,6 @@ Debugging:
               If there is, please move old finished model to different folder.
 2. careful in using file_name
 
-NOTE: there are two different TRAIN file for different dataset because
+NOTE: there are two different TRAIN files for two different datasets because
       MNIST is implemented in pure Tensorflow and CIFAR-10 is implemented in Keras
       which uses Tensorflow as backend.
