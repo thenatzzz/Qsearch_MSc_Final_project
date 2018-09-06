@@ -47,8 +47,8 @@ To Visualize the Results:
 3. VISUALIZE_DIST: to see how distribution of model: mean, median, mode, max
 
 REQUIREMENTS:
-1. Tensorflow for MNIST, CIFAR-10
-2. Keras for CIFAR-10
+1. Tensorflow platform for MNIST, CIFAR-10
+2. Keras platform for CIFAR-10
 3. Seaborn for visualization
 4. (Optional) ffmpeg for visualizing heatmap png files
 5. (Optional) using GPU setup to speed up training
