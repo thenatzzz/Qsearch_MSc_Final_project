@@ -1,4 +1,4 @@
-MSc Final Project: Q-Search- designing CNN architectures using Reinforcement Learning
+MSc Final Project: Q-Search - designing CNN architectures using Reinforcement Learning
 
 Scope:
 1. Limited numbers of State (Layer) = 4
