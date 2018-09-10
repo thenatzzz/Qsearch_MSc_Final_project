@@ -5,7 +5,7 @@ Scope:
 2. Limited numbers of Action (Different types of layers) = 16
 3. Possible CNN layers: Convolutional, Maximum Pooling and Softmax Layer
 
-Main Algorithms and Techniques:
+Main Algorithm and Techniques:
 1. Q-Learning with Q-table
 2. Epsilon-Greedy Strategy: balancing between Exploration and Exploitation
 3. Experience Replay: memory for the agent
