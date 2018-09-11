@@ -8,7 +8,7 @@ Scope:
 Main Algorithm and Techniques:
 1. Q-Learning with Q-table
 2. Epsilon-Greedy Strategy: balancing between Exploration and Exploitation
-3. Experience Replay: memory for the agent
+3. Experience Replay: a memory for the agent
     Different ways to use Experience Replay
     3.1 Not using Experience Replay
     3.2 Update Q-table by sampling models from Experience Replay after the agent
