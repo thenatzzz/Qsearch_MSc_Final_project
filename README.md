@@ -1,11 +1,11 @@
-MSc Final Project: Q-Search - designing CNN architectures using Reinforcement Learning
+# MSc Final Project: Q-Search - designing CNN architectures using Reinforcement Learning
 
-Scope:
+### Scope:
 1. Limited numbers of State (Layer) = 4
 2. Limited numbers of Action (Different types of layers) = 16
 3. Possible CNN layers: Convolutional, Maximum Pooling and Softmax Layer
 
-Main Algorithm and Techniques:
+### Main Algorithm and Techniques:
 1. Q-Learning with Q-table
 2. Epsilon-Greedy Strategy: balancing between Exploration and Exploitation
 3. Experience Replay: a memory for the agent
@@ -16,11 +16,11 @@ Main Algorithm and Techniques:
     3.4 Update Q-table by sampling models from Experience Replay in periodic manner
         such as every 100 episodes
 
-Dataset:
+### Dataset:
 1. MNIST
 2. CIFAR-10
 
-Experiments:
+### Experiments:
 1. Random Search: in MAIN folder by using RANDOM_TOPOLOGY.py then train according
    to specified datasets
    1.1 MNIST
@@ -40,26 +40,26 @@ Experiments:
 PS. the parameters for CNN can be adjusted in TRAIN_MODEL_MNIST/CIFAR10.py such as
     training steps, batch size, data augmentation
 
-To Visualize the Results:
+#### To Visualize the Results:
 1. VISUALIZE_HEATMAP: to see how Q-table changes overtime
 2. VISUALIZE_MODEL_CHART: to see how topologies the agent has successfully found overtime
                           going in what direction.
 3. VISUALIZE_DIST: to see how distribution of model: mean, median, mode, max
 
-REQUIREMENTS:
+### REQUIREMENTS:
 1. Tensorflow platform for MNIST, CIFAR-10
 2. Keras platform for CIFAR-10
 3. Seaborn for visualization
 4. (Optional) ffmpeg for visualizing heatmap png files
 5. (Optional) using GPU setup to speed up training
 
-HOW TO USE:
+#### HOW TO USE:
 1. RANDOMLY generate topology for epsilon = 1 (using RANDOM_TOPOLOGY.py)
 2. train file from 1. with pre_train_model_mnist/cifar10 in TRAIN_MODEL_MNIST/CIFAR-10.py
 3. using file from 1. as experience replay
 4. start Q-learning
 
-Debugging:
+#### Debugging:
 1. If training MNIST dataset, get this error message:
     "NotFoundError (see above for traceback): Key conv2d_2/bias not found in checkpoint"
     Solution: check whether there is finished model located in saved folder,
