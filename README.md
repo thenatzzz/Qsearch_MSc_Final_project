@@ -16,7 +16,7 @@
     3.4 Update Q-table by sampling models from Experience Replay in periodic manner
         such as every 100 episodes
 
-### Dataset:
+### Datasets:
 1. MNIST
 2. CIFAR-10
 
